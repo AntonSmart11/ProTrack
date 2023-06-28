@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/home"
-            android:title="Inicio"
-            android:icon="@drawable/home" />
 
         <item
             android:id="@+id/project"
-            android:title="Perfil"
+            android:title="Proyectos"
             android:icon="@drawable/project" />
 
         <item
             android:id="@+id/notes"
-            android:title="Configuración"
+            android:title="Notas"
             android:icon="@drawable/notes" />
 
         <item
             android:id="@+id/roles"
-            android:title="Configuración"
+            android:title="Roles"
             android:icon="@drawable/roles" />
 
         <item
             android:id="@+id/remembers"
-            android:title="Configuración"
+            android:title="Recordatorios"
             android:icon="@drawable/watch" />
     </group>
 </menu>
