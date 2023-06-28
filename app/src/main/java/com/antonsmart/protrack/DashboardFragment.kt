@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
@@ -22,6 +24,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         super.onViewCreated(view, savedInstanceState)
 
         toolbar = view.findViewById(R.id.toolbar)
+
+        toolbar.title = ""
 
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
 
