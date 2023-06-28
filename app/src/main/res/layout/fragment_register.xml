@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    tools:context=".RegisterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryColor"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_black"
+                android:padding="25dp"
+                android:text="Registrarse"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_register_rounded_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="30dp">
+
+                <EditText
+                    android:id="@+id/registerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginEnd="65dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="text"
+                    android:background="@drawable/edittext_rounded_background"
+                    android:hint="Nombre"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/registerLast"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginEnd="65dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="text"
+                    android:background="@drawable/edittext_rounded_background"
+                    android:hint="Apellido"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/registerUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginEnd="65dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="text"
+                    android:background="@drawable/edittext_rounded_background"
+                    android:hint="Usuario"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/registerPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginEnd="65dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="text"
+                    android:background="@drawable/edittext_rounded_background"
+                    android:hint="Contraseña"
+                    android:gravity="center"/>
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Registrarse"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/primaryColor"
+                    android:layout_marginTop="50dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="¿Tienes cuenta?"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:paddingTop="30dp"/>
+
+                <TextView
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Inciar sesión"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

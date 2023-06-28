@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RobotoBlack">
+        <item name="android:fontFamily">@font/roboto_black</item>
+    </style>
+    <style name="RobotoBold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+    <style name="RobotoMedium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+    <style name="RobotoRegular">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+    <style name="RobotoLight">
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
+</resources>
