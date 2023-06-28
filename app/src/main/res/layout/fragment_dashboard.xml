@@ -108,7 +108,7 @@
                                 android:layout_width="@dimen/card_width"
                                 android:layout_height="@dimen/card_height"
                                 android:background="@color/white"
-                                app:cardCornerRadius="10dp"
+                                app:cardCornerRadius="15dp"
                                 app:cardElevation="4dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginEnd="30dp">
@@ -143,7 +143,7 @@
                                 android:layout_width="@dimen/card_width"
                                 android:layout_height="@dimen/card_height"
                                 android:background="@color/white"
-                                app:cardCornerRadius="10dp"
+                                app:cardCornerRadius="15dp"
                                 app:cardElevation="4dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginStart="30dp">
@@ -186,7 +186,7 @@
                                 android:layout_width="@dimen/card_width"
                                 android:layout_height="@dimen/card_height"
                                 android:background="@color/white"
-                                app:cardCornerRadius="10dp"
+                                app:cardCornerRadius="15dp"
                                 app:cardElevation="4dp"
                                 android:layout_marginBottom="20dp"
                                 android:layout_marginEnd="30dp">
@@ -221,7 +221,7 @@
                                 android:layout_width="@dimen/card_width"
                                 android:layout_height="@dimen/card_height"
                                 android:background="@color/white"
-                                app:cardCornerRadius="10dp"
+                                app:cardCornerRadius="15dp"
                                 app:cardElevation="4dp"
                                 android:layout_marginBottom="20dp"
                                 android:layout_marginStart="30dp">
