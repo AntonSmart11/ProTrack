@@ -50,7 +50,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             when (menuItem.itemId) {
                 R.id.project -> {
                     Navigation.findNavController(requireView())
-                        .navigate(R.id.action_dashboardFragment_to_loginFragment)
+                        .navigate(R.id.action_dashboardFragment_to_projectFragment)
                 }
                 R.id.notes -> {
                     Navigation.findNavController(requireActivity(), R.id.loginFragment)
