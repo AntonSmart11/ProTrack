@@ -9,21 +9,25 @@ import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
+import com.antonsmart.protrack.databinding.FragmentDashboardBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
+    private lateinit var binding: FragmentDashboardBinding
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = DataBindingUtil.bind(view)!!
 
-        toolbar = view.findViewById(R.id.toolbar)
+        toolbar = binding.toolbar
 
         toolbar.title = ""
 
@@ -31,7 +35,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val drawerLayout = view.findViewById<DrawerLayout>(R.id.drawerLayout)
+        val drawerLayout = binding.drawerLayout
         drawerToggle = ActionBarDrawerToggle(
             requireActivity(),
             drawerLayout,
@@ -44,7 +48,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-        val navigationView = view.findViewById<NavigationView>(R.id.navigationView)
+        val navigationView = binding.navigationView
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle navigation item clicks here
             when (menuItem.itemId) {

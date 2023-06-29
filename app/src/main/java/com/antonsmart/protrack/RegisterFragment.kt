@@ -7,21 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import com.antonsmart.protrack.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
+    private lateinit var binding: FragmentRegisterBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = DataBindingUtil.bind(view)!!
 
-        val btnLogin = requireView().findViewById<TextView>(R.id.btnLogin)
-        val btnRegister = requireView().findViewById<Button>(R.id.btnRegister)
-
-        btnLogin.setOnClickListener{
+        binding.btnLogin.setOnClickListener{
             findNavController().navigate(R.id.action_registerFragment2_to_loginFragment)
         }
 
-        btnRegister.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment2_to_loginFragment)
         }
     }

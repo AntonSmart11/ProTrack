@@ -35,6 +35,10 @@ class ProjectAdapter(var context: Context, var listProjects:MutableList<Project>
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         var project = listProjects[position]
         holder.title.text = project.title
+
+        val backgrounds = arrayOf(R.drawable.item_recycler_view1, R.drawable.item_recycler_view2)
+        val background = backgrounds[position % backgrounds.size]
+        holder.item.setBackgroundResource(background)
     }
 
 }
