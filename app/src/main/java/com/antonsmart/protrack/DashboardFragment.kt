@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.antonsmart.protrack.databinding.FragmentDashboardBinding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.button.MaterialButton
@@ -70,6 +71,15 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 }
             }
             true
+        }
+
+        //Content
+
+        binding.projectWidget.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_projectFragment)
+        }
+        binding.projectImage.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_projectFragment)
         }
 
     }
