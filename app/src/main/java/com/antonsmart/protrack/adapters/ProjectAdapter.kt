@@ -1,14 +1,13 @@
 package com.antonsmart.protrack.adapters
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.R
-import com.antonsmart.protrack.dataClass.Project
+import com.antonsmart.protrack.objects.Project
 
 class ProjectAdapter(var context: Context, var listProjects:MutableList<Project>):RecyclerView.Adapter<ProjectAdapter.MyHolder>() {
 
