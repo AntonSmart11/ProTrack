@@ -5,4 +5,6 @@
     <dimen name="card_image_height">90dp</dimen>
     <dimen name="card_text_height">20dp</dimen>
     <dimen name="card_text_size">15sp</dimen>
+
+    <dimen name="alert_dialog_text_width">350dp</dimen>
 </resources>

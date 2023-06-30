@@ -6,57 +6,76 @@
     android:gravity="center"
     android:background="@drawable/alert_dialog_background">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crear proyecto"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/roboto_bold"
-        android:textSize="25sp"
-        android:textColor="@color/primaryColor"/>
-
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/roboto_regular"
-        android:hint="Nombre del proyecto"
-        android:singleLine="true"
-        android:textColor="#000000"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/roboto_regular"
-        android:hint="Fecha estimada"
-        android:inputType="date"
-        android:singleLine="true"
-        android:textColor="#000000"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/roboto_regular"
-        android:hint="Descripción"
-        android:singleLine="true"
-        android:textColor="#000000"/>
+            <TextView
+                android:layout_width="@dimen/alert_dialog_text_width"
+                android:layout_height="wrap_content"
+                android:text="Crear proyecto"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="65dp"
+                android:paddingEnd="65dp"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="25sp"
+                android:textColor="@color/primaryColor"
+                android:textAlignment="center"/>
 
-    <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/arrow_next"
-        android:background="@drawable/button_alert_dialog_background"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Nombre del proyecto"
+                android:singleLine="true"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Fecha estimada"
+                android:inputType="date"
+                android:singleLine="true"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Descripción"
+                android:singleLine="true"
+                android:textColor="#000000"/>
+
+            <ImageButton
+                android:id="@+id/nextProjectButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/arrow_next"
+                android:background="@drawable/button_alert_dialog_background"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </LinearLayout>

@@ -2,9 +2,12 @@ package com.antonsmart.protrack
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +20,6 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
     private lateinit var binding: FragmentProjectBinding
     private var listProjects: MutableList<Project> = mutableListOf()
     private lateinit var recycler: RecyclerView
-    private lateinit var builder: AlertDialog.Builder
-    private lateinit var dialogLayout: View
-    private lateinit var dialog: AlertDialog
 
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,14 +34,8 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
 
         setAdapter()
 
-        builder = AlertDialog.Builder(requireContext())
-        dialogLayout = layoutInflater.inflate(R.layout.project_alert_dialog, null)
-
         binding.addProject.setOnClickListener {
-            builder.setView(dialogLayout)
-
-            dialog = builder.create()
-            dialog.show()
+            showCreateProjectDialog()
         }
 
         binding.arrowBack.setOnClickListener {
@@ -55,4 +49,16 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         recycler.adapter = ProjectAdapter(requireContext(), listProjects)
     }
 
+    private fun  showCreateProjectDialog() {
+        val dialog = Dialog(requireContext(), R.style.CustomAlertDialog)
+        val dialogLayout = layoutInflater.inflate(R.layout.project_alert_dialog, null)
+        dialog.setContentView(dialogLayout)
+
+        val nextButton = dialog.findViewById<ImageButton>(R.id.nextProjectButton)
+        nextButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
 }
