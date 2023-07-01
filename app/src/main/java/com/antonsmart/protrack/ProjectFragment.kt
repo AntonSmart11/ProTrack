@@ -31,6 +31,7 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         listProjects.add(Project("Proyecto 3"))
         listProjects.add(Project("Proyecto 4"))
         listProjects.add(Project("Proyecto 5"))
+        listProjects.add(Project("Proyecto 6"))
 
         setAdapter()
 

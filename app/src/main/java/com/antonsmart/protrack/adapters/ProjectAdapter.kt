@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.R
+import com.antonsmart.protrack.WorkFragment
 import com.antonsmart.protrack.objects.Project
 
 class ProjectAdapter(var context: Context, var listProjects:MutableList<Project>):RecyclerView.Adapter<ProjectAdapter.MyHolder>() {
@@ -38,6 +40,11 @@ class ProjectAdapter(var context: Context, var listProjects:MutableList<Project>
         val backgrounds = arrayOf(R.drawable.item_recycler_view1, R.drawable.item_recycler_view2)
         val background = backgrounds[position % backgrounds.size]
         holder.item.setBackgroundResource(background)
+
+        holder.item.setOnClickListener {
+            val navController = Navigation.findNavController(holder.itemView)
+            navController.navigate(R.id.action_projectFragment_to_workFragment)
+        }
     }
 
 }

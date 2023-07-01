@@ -6,4 +6,5 @@
     <color name="primaryColor">#1F30C9</color>
     <color name="secondaryColor">#E6E6E6</color>
     <color name="backgroundWidget">#D9D9D9</color>
+    <color name="backgroundWidget2">#E1E1E1</color>
 </resources>
