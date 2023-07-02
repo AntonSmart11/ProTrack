@@ -43,7 +43,7 @@ class ProjectAdapter(var context: Context, var listProjects:MutableList<Project>
 
         holder.item.setOnClickListener {
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_projectFragment_to_workFragment)
+            navController.navigate(R.id.action_projectFragment_to_pageProjectFragment)
         }
     }
 

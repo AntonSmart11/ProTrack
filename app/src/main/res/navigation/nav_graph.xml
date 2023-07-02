@@ -44,12 +44,17 @@
         android:label="fragment_project"
         tools:layout="@layout/fragment_project" >
         <action
-            android:id="@+id/action_projectFragment_to_workFragment"
-            app:destination="@id/workFragment" />
+            android:id="@+id/action_projectFragment_to_pageProjectFragment"
+            app:destination="@id/pageProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/workFragment"
         android:name="com.antonsmart.protrack.WorkFragment"
         android:label="fragment_work"
         tools:layout="@layout/fragment_work" />
+    <fragment
+        android:id="@+id/pageProjectFragment"
+        android:name="com.antonsmart.protrack.PageProjectFragment"
+        android:label="fragment_page_project"
+        tools:layout="@layout/fragment_page_project" />
 </navigation>
