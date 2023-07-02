@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.R
 import com.antonsmart.protrack.objects.Work
@@ -40,7 +41,8 @@ class WorkAdapter(var context: Context, var listWorks:MutableList<Work>):Recycle
         holder.item.setBackgroundResource(background)
 
         holder.item.setOnClickListener {
-
+            val navController = Navigation.findNavController(holder.itemView)
+            navController.navigate(R.id.action_workFragment_to_pageWorkFragment2)
         }
     }
 

@@ -51,7 +51,11 @@
         android:id="@+id/workFragment"
         android:name="com.antonsmart.protrack.WorkFragment"
         android:label="fragment_work"
-        tools:layout="@layout/fragment_work" />
+        tools:layout="@layout/fragment_work" >
+        <action
+            android:id="@+id/action_workFragment_to_pageWorkFragment2"
+            app:destination="@id/pageWorkFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/pageProjectFragment"
         android:name="com.antonsmart.protrack.PageProjectFragment"
@@ -61,4 +65,9 @@
             android:id="@+id/action_pageProjectFragment_to_workFragment"
             app:destination="@id/workFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pageWorkFragment2"
+        android:name="com.antonsmart.protrack.PageWorkFragment"
+        android:label="fragment_page_work"
+        tools:layout="@layout/fragment_page_work" />
 </navigation>
