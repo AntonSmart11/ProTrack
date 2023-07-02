@@ -82,6 +82,10 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             findNavController().navigate(R.id.action_dashboardFragment_to_projectFragment)
         }
 
+        binding.userButton.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_userFragment)
+        }
+
     }
 
 }
