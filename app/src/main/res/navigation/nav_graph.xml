@@ -56,5 +56,9 @@
         android:id="@+id/pageProjectFragment"
         android:name="com.antonsmart.protrack.PageProjectFragment"
         android:label="fragment_page_project"
-        tools:layout="@layout/fragment_page_project" />
+        tools:layout="@layout/fragment_page_project" >
+        <action
+            android:id="@+id/action_pageProjectFragment_to_workFragment"
+            app:destination="@id/workFragment" />
+    </fragment>
 </navigation>

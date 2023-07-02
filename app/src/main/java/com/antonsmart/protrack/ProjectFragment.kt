@@ -26,6 +26,7 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
 
+        listProjects.clear()
         listProjects.add(Project("Proyecto 1"))
         listProjects.add(Project("Proyecto 2"))
         listProjects.add(Project("Proyecto 3"))

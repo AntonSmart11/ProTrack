@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.antonsmart.protrack.databinding.FragmentPageProjectBinding
 
 class PageProjectFragment : Fragment(R.layout.fragment_page_project) {
@@ -42,6 +44,14 @@ class PageProjectFragment : Fragment(R.layout.fragment_page_project) {
             progressLayout.layoutParams = layoutParams1
             backgroundLayout.layoutParams = layoutParams2
 
+        }
+
+        binding.toWork.setOnClickListener {
+            findNavController().navigate(R.id.action_pageProjectFragment_to_workFragment)
+        }
+
+        binding.arrowBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
     }
