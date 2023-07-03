@@ -40,6 +40,15 @@
         <action
             android:id="@+id/action_dashboardFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_role1Fragment"
+            app:destination="@id/roleFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_reminder1Fragment"
+            app:destination="@id/reminderFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_note1Fragment"
+            app:destination="@id/noteFragment" />
     </fragment>
     <fragment
         android:id="@+id/projectFragment"
@@ -78,4 +87,18 @@
         android:name="com.antonsmart.protrack.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/roleFragment"
+        android:name="com.antonsmart.protrack.RoleFragment"
+        android:label="fragment_role"
+        tools:layout="@layout/fragment_role" />
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.antonsmart.protrack.RemindersFragment"
+        android:label="fragment_reminder" />
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="com.antonsmart.protrack.NoteFragment"
+        android:label="fragment_note"
+        tools:layout="@layout/fragment_note" />
 </navigation>

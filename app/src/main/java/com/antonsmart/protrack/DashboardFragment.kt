@@ -58,16 +58,16 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                         .navigate(R.id.action_dashboardFragment_to_projectFragment)
                 }
                 R.id.notes -> {
-                    Navigation.findNavController(requireActivity(), R.id.loginFragment)
-                        .navigate(R.id.loginFragment)
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_dashboardFragment_to_note1Fragment)
                 }
                 R.id.roles -> {
-                    Navigation.findNavController(requireActivity(), R.id.loginFragment)
-                        .navigate(R.id.loginFragment)
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_dashboardFragment_to_role1Fragment)
                 }
                 R.id.remembers -> {
-                    Navigation.findNavController(requireActivity(), R.id.loginFragment)
-                        .navigate(R.id.loginFragment)
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_dashboardFragment_to_reminder1Fragment)
                 }
             }
             true
@@ -80,6 +80,27 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
         binding.projectImage.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_projectFragment)
+        }
+
+        binding.rolesWidget.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_role1Fragment)
+        }
+        binding.rolesImage.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_role1Fragment)
+        }
+
+        binding.reminderWidget.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_reminder1Fragment)
+        }
+        binding.reminderImage.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_reminder1Fragment)
+        }
+
+        binding.noteWidget.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_note1Fragment)
+        }
+        binding.noteImage.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_note1Fragment)
         }
 
         binding.userButton.setOnClickListener {
