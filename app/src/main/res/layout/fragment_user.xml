@@ -106,7 +106,8 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:hint="Usuario"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:enabled="false"/>
 
                     <EditText
                         android:id="@+id/userPassword"

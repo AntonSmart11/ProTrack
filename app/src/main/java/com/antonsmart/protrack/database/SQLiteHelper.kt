@@ -96,4 +96,32 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         return userList
     }
 
+    fun UpdateUser(user: User): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER, user.id)
+        contentValues.put(NAME_USER, user.name)
+        contentValues.put(LAST_USER, user.last)
+        contentValues.put(USERNAME_USER, user.username)
+        contentValues.put(PASSWORD_USER, user.password)
+
+        val success = db.update(TABLE_USERS, contentValues, ID_USER + "=" + user.id, null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteUser(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER, id)
+
+        val success = db.delete(TABLE_USERS, ID_USER + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
 }
