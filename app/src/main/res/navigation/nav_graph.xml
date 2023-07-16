@@ -49,6 +49,10 @@
         <action
             android:id="@+id/action_dashboardFragment_to_note1Fragment"
             app:destination="@id/noteFragment" />
+        <argument
+            android:name="id_user"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/projectFragment"

@@ -67,7 +67,7 @@
                         app:tint="@color/primaryColor" />
 
                     <EditText
-                        android:id="@+id/registerName"
+                        android:id="@+id/userName"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="50dp"
@@ -78,11 +78,10 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:hint="Nombre"
-                        android:inputType="text"
-                        android:text="Antonio" />
+                        android:inputType="text"/>
 
                     <EditText
-                        android:id="@+id/registerLast"
+                        android:id="@+id/userLast"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="50dp"
@@ -93,11 +92,10 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:hint="Apellido"
-                        android:inputType="text"
-                        android:text="Ovando" />
+                        android:inputType="text"/>
 
                     <EditText
-                        android:id="@+id/registerUser"
+                        android:id="@+id/userUsername"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="50dp"
@@ -108,11 +106,10 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:hint="Usuario"
-                        android:inputType="text"
-                        android:text="antoniooc11" />
+                        android:inputType="text"/>
 
                     <EditText
-                        android:id="@+id/registerPassword"
+                        android:id="@+id/userPassword"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="50dp"
@@ -123,9 +120,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:hint="Contraseña"
-                        android:inputType="textPassword"
-
-                        android:text="1234" />
+                        android:inputType="textPassword"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -135,6 +130,7 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/btnSaveUser"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
@@ -145,6 +141,7 @@
                             android:textSize="18sp" />
 
                         <Button
+                            android:id="@+id/btnDeleteUser"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"

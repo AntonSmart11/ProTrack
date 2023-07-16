@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.antonsmart.protrack.databinding.FragmentDashboardBinding
+import com.antonsmart.protrack.global.Global
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
@@ -28,6 +30,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
 
+        //Toolbar
         toolbar = binding.toolbar
 
         toolbar.title = ""
@@ -36,6 +39,11 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //Asignation of user in the global variable
+        val userId = DashboardFragmentArgs.fromBundle(requireArguments()).idUser
+        Global.idUser = userId
+
+        //Creation of the drawer layout
         val drawerLayout = binding.drawerLayout
         drawerToggle = ActionBarDrawerToggle(
             requireActivity(),
