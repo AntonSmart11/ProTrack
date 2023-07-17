@@ -10,13 +10,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.adapters.NoteAdapter
+import com.antonsmart.protrack.adapters.NoteListProjectsWithoutButtonsAdapter
 import com.antonsmart.protrack.databinding.FragmentNoteBinding
 import com.antonsmart.protrack.objects.Note
+import com.antonsmart.protrack.objects.Project
 
+
+//se usan los adaptadores de NoteListProjectsWithoutButton adapter para mostrar
+// una lista de los porjectos para acceder a sus respectivas notas
+//ademas de que aparecen los projectos sin los botones de eliminar y editar
 
 class NoteFragment : Fragment(R.layout.fragment_note) {
     private lateinit var binding: FragmentNoteBinding
-    private var listNotes: MutableList<Note> = mutableListOf()
+    private var listProjects: MutableList<Project> = mutableListOf()
     private lateinit var recycler: RecyclerView
 
 
@@ -25,17 +31,15 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
 
-        listNotes.add(Note("Nota 1","Descripción 1"))
-        listNotes.add(Note("Nota 2","Descripción 2"))
-        listNotes.add(Note("Nota 3","Descripción 3"))
-        listNotes.add(Note("Nota 4","Descripción 4"))
-        listNotes.add(Note("Nota 5","Descripción 5"))
+
+        listProjects.clear()
+        listProjects.add(Project("Projecto 1"))
+        listProjects.add(Project("Projecto 2"))
+        listProjects.add(Project("Projecto 3"))
+        listProjects.add(Project("Projecto 4"))
+        listProjects.add(Project("Projecto 5"))
 
         setAdapter()
-
-        binding.addNote.setOnClickListener{
-            showCreateNoteDialog()
-        }
 
         binding.arrowBack.setOnClickListener{
             requireActivity().onBackPressed()
@@ -45,19 +49,7 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     private fun setAdapter(){
         recycler = requireView().findViewById(R.id.noteRecyclerView)
         recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = NoteAdapter(requireContext(), listNotes)
+        recycler.adapter = NoteListProjectsWithoutButtonsAdapter(requireContext(), listProjects)
     }
 
-    private fun showCreateNoteDialog(){
-        val dialog = Dialog(requireContext(),R.style.CustomAlertDialog)
-        val dialogLayout = layoutInflater.inflate(R.layout.note_alert_dialog,null)
-        dialog.setContentView(dialogLayout)
-
-        val nextButtom = dialog.findViewById<ImageButton>(R.id.nextNoteButton)
-        nextButtom.setOnClickListener{
-            dialog.dismiss()
-        }
-
-        dialog.show()
-    }
 }

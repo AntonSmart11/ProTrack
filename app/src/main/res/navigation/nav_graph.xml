@@ -103,10 +103,46 @@
     <fragment
         android:id="@+id/reminderFragment"
         android:name="com.antonsmart.protrack.RemindersFragment"
-        android:label="fragment_reminder" />
+        android:label="fragment_reminder" >
+        <action
+            android:id="@+id/action_reminderFragment_to_pageReminderFragment"
+            app:destination="@id/pageReminderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/noteFragment"
         android:name="com.antonsmart.protrack.NoteFragment"
         android:label="fragment_note"
-        tools:layout="@layout/fragment_note" />
+        tools:layout="@layout/fragment_note" >
+        <action
+            android:id="@+id/action_noteFragment_to_pageListWorksNoteFragment"
+            app:destination="@id/pageListWorksNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageListWorksNoteFragment"
+        android:name="com.antonsmart.protrack.PageListWorksNoteFragment"
+        android:label="fragment_page_list_works_note"
+        tools:layout="@layout/fragment_page_list_works_note" >
+        <action
+            android:id="@+id/action_pageListWorksNoteFragment_to_pageListNotesFragment"
+            app:destination="@id/pageListNotesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageListNotesFragment"
+        android:name="com.antonsmart.protrack.pageListNotesFragment"
+        android:label="fragment_page_list_notes"
+        tools:layout="@layout/fragment_page_list_notes" >
+        <action
+            android:id="@+id/action_pageListNotesFragment_to_pageNoteFragment"
+            app:destination="@id/pageNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageNoteFragment"
+        android:name="com.antonsmart.protrack.PageNoteFragment"
+        android:label="fragment_page_note"
+        tools:layout="@layout/fragment_page_note" />
+    <fragment
+        android:id="@+id/pageReminderFragment"
+        android:name="com.antonsmart.protrack.PageReminderFragment"
+        android:label="fragment_page_reminder"
+        tools:layout="@layout/fragment_page_reminder" />
 </navigation>

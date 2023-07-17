@@ -18,7 +18,7 @@ class RoleAdapter(var context:Context, var listRoles: MutableList<Role>):Recycle
 
         init {
             title = itemView.findViewById(R.id.titleProject)
-            item = itemView.findViewById(R.id.titleProject)
+            item = itemView.findViewById(R.id.itemProject)
         }
     }
 

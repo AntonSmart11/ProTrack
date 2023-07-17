@@ -61,17 +61,6 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:src="@drawable/add"
-            app:layout_anchor="@id/noteRecyclerView"
-            app:layout_anchorGravity="bottom|end"
-            android:backgroundTint="@color/primaryColor"
-            android:tintMode="@color/white"/>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
