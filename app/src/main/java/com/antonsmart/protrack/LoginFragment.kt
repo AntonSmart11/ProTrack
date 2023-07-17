@@ -1,6 +1,8 @@
 package com.antonsmart.protrack
 
+import android.content.Context
 import android.os.Bundle
+import android.provider.Settings.Global
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -21,6 +23,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         sqliteHelper = SQLiteHelper(requireContext())
 
+        val sharedPrefs = requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val sessionActive = sharedPrefs.getBoolean("session_active", false)
+        val userId = sharedPrefs.getInt("id_user", 0)
+
+        if(sessionActive) {
+            findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+        }
+
         binding.btnEnter.setOnClickListener {
             val username = binding.loginUser.text.toString()
             val password = binding.loginPassword.text.toString()
@@ -37,6 +47,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                         val id_user = UserId(username).id
 
+                        SessionActive(id_user)
+
                         val direction = LoginFragmentDirections.actionLoginFragmentToDashboardFragment(id_user)
                         findNavController().navigate(direction)
 
@@ -52,6 +64,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment2)
         }
+    }
+
+    private fun SessionActive(id: Int) {
+        val sharedPrefs = requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putBoolean("session_active", true)
+        editor.putInt("id_user", id)
+        editor.apply()
     }
 
     private fun UserId(username: String): User {

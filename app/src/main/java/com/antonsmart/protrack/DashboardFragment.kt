@@ -1,10 +1,12 @@
 package com.antonsmart.protrack
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -40,7 +42,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Asignation of user in the global variable
-        val userId = DashboardFragmentArgs.fromBundle(requireArguments()).idUser
+        val sharedPrefs = requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val userId = sharedPrefs.getInt("id_user", 0)
         Global.idUser = userId
 
         //Creation of the drawer layout
@@ -81,6 +84,16 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             true
         }
 
+        val btnLogout = binding.navigationView.getHeaderView(0).findViewById<Button>(R.id.btnLogout)
+
+        btnLogout.setOnClickListener {
+            Global.idUser = 0
+
+            SessionLogout()
+
+            findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+        }
+
         //Content
 
         binding.projectWidget.setOnClickListener {
@@ -115,6 +128,14 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             findNavController().navigate(R.id.action_dashboardFragment_to_userFragment)
         }
 
+    }
+
+    private fun SessionLogout() {
+        val sharedPrefs = requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putBoolean("session_active", false)
+        editor.putInt("id_user", 0)
+        editor.apply()
     }
 
 }
