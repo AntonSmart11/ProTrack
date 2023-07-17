@@ -18,7 +18,7 @@ class ReminderAdapter (var context: Context,var listReminders:MutableList<Remind
 
         init {
             title = itemView.findViewById(R.id.titleProject)
-            item = itemView.findViewById(R.id.titleProject)
+            item = itemView.findViewById(R.id.itemProject)
         }
     }
 

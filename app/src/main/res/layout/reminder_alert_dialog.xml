@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="@dimen/alert_dialog_text_width"
                 android:layout_height="wrap_content"
-                android:text="Crear recordatorio"
+                android:text="Crear notificación"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:paddingStart="65dp"
@@ -39,7 +39,29 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_regular"
-                android:hint="recordatorio"
+                android:hint="Nombre de la notificación"
+                android:singleLine="true"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Tarea"
+                android:singleLine="true"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Fecha de entrega"
                 android:singleLine="true"
                 android:textColor="#000000"/>
 
