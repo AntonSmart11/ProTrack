@@ -1,20 +1,14 @@
 package com.antonsmart.protrack
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentRegisterBinding
 import com.antonsmart.protrack.objects.User
-import kotlin.math.log
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
@@ -73,7 +67,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             Toast.makeText(context, "Campo contraseña vacío", Toast.LENGTH_SHORT).show()
         } else {
 
-            if(CheckUser(username)) {
+            if(checkUser(username)) {
                 val user = User(0, name, last, username, password)
                 val status = sqliteHelper.InsertUser(user)
 
@@ -92,7 +86,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     }
 
-    private fun CheckUser(username: String): Boolean {
+    private fun checkUser(username: String): Boolean {
         val userList = sqliteHelper.GetAllUsers()
         val usernames = userList.map { it.username }
         var repeat = true

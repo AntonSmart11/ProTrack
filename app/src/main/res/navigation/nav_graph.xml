@@ -80,6 +80,13 @@
         <action
             android:id="@+id/action_pageProjectFragment_to_workFragment"
             app:destination="@id/workFragment" />
+        <argument
+            android:name="id_project"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_pageProjectFragment_to_projectFragment"
+            app:destination="@id/projectFragment" />
     </fragment>
     <fragment
         android:id="@+id/pageWorkFragment2"

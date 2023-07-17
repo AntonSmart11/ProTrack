@@ -41,6 +41,7 @@
                             android:src="@drawable/arrow_back" />
 
                         <TextView
+                            android:id="@+id/titleProjectPage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -90,6 +91,7 @@
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/descriptionProjectPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -113,6 +115,7 @@
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/dateProjectPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -189,6 +192,7 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/editProject"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -199,6 +203,7 @@
                             android:fontFamily="@font/roboto_regular"/>
 
                         <Button
+                            android:id="@+id/deleteProject"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

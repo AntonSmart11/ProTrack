@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.antonsmart.protrack.ProjectFragmentDirections
 import com.antonsmart.protrack.R
 import com.antonsmart.protrack.objects.Project
 
@@ -42,7 +43,8 @@ class ProjectAdapter(var context: Context, var listProjects:MutableList<Project>
 
         holder.item.setOnClickListener {
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_projectFragment_to_pageProjectFragment)
+            val action = ProjectFragmentDirections.actionProjectFragmentToPageProjectFragment(project.id)
+            navController.navigate(action)
         }
     }
 

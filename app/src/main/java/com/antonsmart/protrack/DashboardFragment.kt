@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.antonsmart.protrack.databinding.FragmentDashboardBinding
 import com.antonsmart.protrack.global.Global
 import com.google.android.material.appbar.AppBarLayout
