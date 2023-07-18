@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.adapters.NoteAdapter
 import com.antonsmart.protrack.adapters.NoteListProjectsWithoutButtonsAdapter
+import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentNoteBinding
+import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.Note
 import com.antonsmart.protrack.objects.Project
 
@@ -24,15 +26,16 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     private lateinit var binding: FragmentNoteBinding
     private var listProjects: MutableList<Project> = mutableListOf()
     private lateinit var recycler: RecyclerView
-
+    private lateinit var sqliteHelper: SQLiteHelper
 
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
 
+        sqliteHelper = SQLiteHelper(requireContext())
 
-        listProjects.clear()
+        getProjects(Global.idUser)
 
         setAdapter()
 
@@ -47,4 +50,14 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         recycler.adapter = NoteListProjectsWithoutButtonsAdapter(requireContext(), listProjects)
     }
 
+    private fun getProjects(id: Int) {
+        val projectList = sqliteHelper.GetAllProjects()
+        val projects = projectList.filter { it.id_user == id }
+
+        listProjects.clear()
+
+        for (project in projects) {
+            listProjects.add(Project(project.id, project.id_user, project.title, project.date, project.description))
+        }
+    }
 }
