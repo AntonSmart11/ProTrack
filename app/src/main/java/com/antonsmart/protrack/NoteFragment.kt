@@ -33,11 +33,6 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
 
 
         listProjects.clear()
-        listProjects.add(Project("Projecto 1"))
-        listProjects.add(Project("Projecto 2"))
-        listProjects.add(Project("Projecto 3"))
-        listProjects.add(Project("Projecto 4"))
-        listProjects.add(Project("Projecto 5"))
 
         setAdapter()
 

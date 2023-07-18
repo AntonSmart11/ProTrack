@@ -63,6 +63,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         onCreate(db)
     }
 
+    //Functions
     //User
     fun InsertUser(user: User): Long {
         val db = this.writableDatabase

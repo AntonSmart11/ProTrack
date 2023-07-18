@@ -25,12 +25,6 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         binding = DataBindingUtil.bind(view)!!
 
         listProjects.clear()
-        listProjects.add(Project("Proyecto 1"))
-        listProjects.add(Project("Proyecto 2"))
-        listProjects.add(Project("Proyecto 3"))
-        listProjects.add(Project("Proyecto 4"))
-        listProjects.add(Project("Proyecto 5"))
-
 
         setAdapter()
 
