@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.R
 import com.antonsmart.protrack.objects.Role
@@ -39,6 +40,10 @@ class RoleAdapter(var context:Context, var listRoles: MutableList<Role>):Recycle
         val backgrounds = arrayOf(R.drawable.item_recycler_view1,R.drawable.item_recycler_view2)
         val background = backgrounds[position % backgrounds.size]
         holder.item.setBackgroundResource(background)
-    }
 
+        holder.item.setOnClickListener {
+            val navController = Navigation.findNavController(holder.itemView)
+            navController.navigate(R.id.action_roleFragment_to_pageRoleFragment)
+        }
+    }
 }

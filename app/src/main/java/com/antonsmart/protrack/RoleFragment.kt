@@ -25,6 +25,7 @@ class RoleFragment : Fragment(R.layout.fragment_role) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
 
+        listRoles.clear()
         listRoles.add(Role("Rol 1"))
         listRoles.add(Role("Rol 2"))
         listRoles.add(Role("Rol 3"))
