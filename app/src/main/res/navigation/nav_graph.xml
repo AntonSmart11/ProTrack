@@ -92,7 +92,15 @@
         android:id="@+id/pageWorkFragment2"
         android:name="com.antonsmart.protrack.PageWorkFragment"
         android:label="fragment_page_work"
-        tools:layout="@layout/fragment_page_work" />
+        tools:layout="@layout/fragment_page_work" >
+        <argument
+            android:name="id_work"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_pageWorkFragment2_to_workFragment"
+            app:destination="@id/workFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.antonsmart.protrack.UserFragment"

@@ -3,15 +3,14 @@ package com.antonsmart.protrack
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.adapters.ProjectAdapter
@@ -37,6 +36,7 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
 
         sqliteHelper = SQLiteHelper(requireContext())
 
+        Global.idProject = 0
         getProjects(Global.idUser)
 
         setAdapter()
@@ -46,7 +46,8 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         }
 
         binding.arrowBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            val navController = Navigation.findNavController(view)
+            navController.navigateUp()
         }
     }
 
@@ -63,10 +64,11 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
 
         val id_user = Global.idUser
         val titleEditText = dialogLayout.findViewById<EditText>(R.id.titleProjectEditText)
-        val dateEditText = dialogLayout.findViewById<EditText>(R.id.dateProjectEditText)
+        val dateStartEditText = dialogLayout.findViewById<EditText>(R.id.dateStartProjectEditText)
+        val dateEndEditText = dialogLayout.findViewById<EditText>(R.id.dateEndProjectEditText)
         val descriptionEditText = dialogLayout.findViewById<EditText>(R.id.descriptionProjectEditText)
 
-        dateEditText.setOnClickListener {
+        dateStartEditText.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
@@ -76,8 +78,36 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, monthOfYear, dayOfMonth)
                 val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(selectedDate.time)
-                dateEditText.setText(formattedDate)
+                dateStartEditText.setText(formattedDate)
             }, year, month, day)
+
+            //Set min date
+            val calendarMin = Calendar.getInstance()
+            calendarMin.set(calendarMin.get(Calendar.YEAR), calendarMin.get(Calendar.MONTH), calendarMin.get(Calendar.DAY_OF_MONTH))
+            val minDate = calendarMin.timeInMillis
+            datePickerDialog.datePicker.minDate = minDate
+
+            datePickerDialog.show()
+        }
+
+        dateEndEditText.setOnClickListener {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(requireContext(), R.style.DatePickerStyle, {_, year, monthOfYear, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, monthOfYear, dayOfMonth)
+                val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(selectedDate.time)
+                dateEndEditText.setText(formattedDate)
+            }, year, month, day)
+
+            //Set min date
+            val calendarMin = Calendar.getInstance()
+            calendarMin.set(calendarMin.get(Calendar.YEAR), calendarMin.get(Calendar.MONTH), calendarMin.get(Calendar.DAY_OF_MONTH))
+            val minDate = calendarMin.timeInMillis
+            datePickerDialog.datePicker.minDate = minDate
 
             datePickerDialog.show()
         }
@@ -85,10 +115,11 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         val nextButton = dialog.findViewById<ImageButton>(R.id.nextProjectButton)
         nextButton.setOnClickListener {
             val title = titleEditText.text.toString()
-            val date = dateEditText.text.toString()
+            val date_start = dateStartEditText.text.toString()
+            val date_end = dateEndEditText.text.toString()
             val description = descriptionEditText.text.toString()
 
-            val success = addProject(id_user, title, date, description)
+            val success = addProject(id_user, title, date_start, date_end, description)
 
             if(success) {
                 getProjects(Global.idUser)
@@ -101,18 +132,14 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         dialog.show()
     }
 
-    private fun onDateSelected(day: Int, month: Int, year: Int, date: EditText) {
-        date.setText("$day - $month - $year")
-    }
-
-    private fun addProject(id_user: Int, title: String, date: String, description: String): Boolean {
+    private fun addProject(id_user: Int, title: String, date_start:String, date_end: String, description: String): Boolean {
         var success = false
 
         if(id_user != 0) {
             if(!title.isEmpty()) {
-                if(!date.isEmpty()) {
+                if(!date_end.isEmpty()) {
                     if(!description.isEmpty()) {
-                        val project = Project(0, id_user, title, date, description)
+                        val project = Project(0, id_user, title, date_start, date_end, description)
                         val status = sqliteHelper.InsertProject(project)
 
                         if(status > -1) {
@@ -142,7 +169,7 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         listProjects.clear()
 
         for (project in projects) {
-            listProjects.add(Project(project.id, project.id_user, project.title, project.date, project.description))
+            listProjects.add(Project(project.id, project.id_user, project.title, project.date_start, project.date_end, project.description))
         }
     }
 }

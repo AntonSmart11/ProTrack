@@ -1,20 +1,16 @@
 package com.antonsmart.protrack
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.antonsmart.protrack.adapters.NoteAdapter
 import com.antonsmart.protrack.adapters.NoteListProjectsWithoutButtonsAdapter
 import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentNoteBinding
 import com.antonsmart.protrack.global.Global
-import com.antonsmart.protrack.objects.Note
 import com.antonsmart.protrack.objects.Project
 
 
@@ -57,7 +53,7 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         listProjects.clear()
 
         for (project in projects) {
-            listProjects.add(Project(project.id, project.id_user, project.title, project.date, project.description))
+            listProjects.add(Project(project.id, project.id_user, project.title, project.date_start, project.date_end, project.description))
         }
     }
 }

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.antonsmart.protrack.objects.Project
 import com.antonsmart.protrack.objects.User
+import com.antonsmart.protrack.objects.Work
 import kotlin.Exception
 import kotlin.collections.ArrayList
 
@@ -31,8 +32,22 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         private const val ID_PROJECT = "id_project"
         private const val ID_USER_PROJECT = "id_user"
         private const val TITLE_PROJECT = "title"
-        private const val DATE_PROJECT = "date"
+        private const val DATE_START_PROJECT = "date_start"
+        private const val DATE_END_PROJECT = "date_end"
         private const val DESCRIPTION_PROJECT = "description"
+
+        //Table of works
+        private const val TABLE_WORKS = "works"
+        private const val ID_WORK = "id_work"
+        private const val ID_PROJECT_WORK = "id_project"
+        private const val ID_USER_WORK = "id_user"
+        private const val TITLE_WORK = "title"
+        private const val DESCRIPTION_WORK = "description"
+        private const val DATE_START_WORK = "date_start"
+        private const val DATE_END_WORK = "date_end"
+        private const val PERSON_WORK = "person"
+        private const val ROLE_WORK = "role"
+        private const val FINISH_WORK = "finish"
 
     }
 
@@ -49,17 +64,33 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                 ID_PROJECT + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ID_USER_PROJECT + " INTEGER," +
                 TITLE_PROJECT + " TEXT," +
-                DATE_PROJECT + " DATE," +
+                DATE_START_PROJECT + " DATE," +
+                DATE_END_PROJECT + " DATE," +
                 DESCRIPTION_PROJECT + " TEXT"
+                +")")
+
+        val TABLE_WORKS = ("CREATE TABLE " + TABLE_WORKS + "(" +
+                ID_WORK + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ID_PROJECT_WORK + " INTEGER," +
+                ID_USER_WORK + " INTEGER," +
+                TITLE_WORK + " TEXT," +
+                DATE_START_WORK + " DATE," +
+                DATE_END_WORK + " DATE," +
+                DESCRIPTION_WORK + " TEXT," +
+                PERSON_WORK + " TEXT," +
+                ROLE_WORK + " TEXT," +
+                FINISH_WORK + " TEXT"
                 +")")
 
         db?.execSQL(TABLE_USERS)
         db?.execSQL(TABLE_PROJECTS)
+        db?.execSQL(TABLE_WORKS)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_USERS")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_PROJECTS")
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_WORKS")
         onCreate(db)
     }
 
@@ -152,7 +183,8 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         val contentValues = ContentValues()
         contentValues.put(ID_USER_PROJECT, project.id_user)
         contentValues.put(TITLE_PROJECT, project.title)
-        contentValues.put(DATE_PROJECT, project.date)
+        contentValues.put(DATE_START_PROJECT, project.date_start)
+        contentValues.put(DATE_END_PROJECT, project.date_end)
         contentValues.put(DESCRIPTION_PROJECT, project.description)
 
         val success = db.insert(TABLE_PROJECTS, null, contentValues)
@@ -179,7 +211,8 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         var id_project: Int
         var id_user: Int
         var title: String
-        var date: String
+        var date_start: String
+        var date_end: String
         var description: String
 
         if(cursor.moveToFirst()) {
@@ -187,10 +220,11 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                 id_project = cursor.getInt(cursor.getColumnIndex(ID_PROJECT))
                 id_user = cursor.getInt(cursor.getColumnIndex(ID_USER_PROJECT))
                 title = cursor.getString(cursor.getColumnIndex(TITLE_PROJECT))
-                date = cursor.getString(cursor.getColumnIndex(DATE_PROJECT))
+                date_start = cursor.getString(cursor.getColumnIndex(DATE_START_PROJECT))
+                date_end = cursor.getString(cursor.getColumnIndex(DATE_END_PROJECT))
                 description = cursor.getString(cursor.getColumnIndex(DESCRIPTION_PROJECT))
 
-                val project = Project(id_project, id_user, title, date, description)
+                val project = Project(id_project, id_user, title, date_start, date_end, description)
                 projectList.add(project)
             } while (cursor.moveToNext())
         }
@@ -205,7 +239,8 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_PROJECT, project.id)
         contentValues.put(ID_USER_PROJECT, project.id_user)
         contentValues.put(TITLE_PROJECT, project.title)
-        contentValues.put(DATE_PROJECT, project.date)
+        contentValues.put(DATE_START_PROJECT, project.date_start)
+        contentValues.put(DATE_END_PROJECT, project.date_end)
         contentValues.put(DESCRIPTION_PROJECT, project.description)
 
         val success = db.update(TABLE_PROJECTS, contentValues, ID_PROJECT + "=" + project.id, null)
@@ -221,6 +256,120 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_PROJECT, id)
 
         val success = db.delete(TABLE_PROJECTS, ID_PROJECT + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+    //Works
+    fun InsertWork(work: Work): Long {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_PROJECT_WORK, work.id_project)
+        contentValues.put(ID_USER_WORK, work.id_user)
+        contentValues.put(TITLE_WORK, work.title)
+        contentValues.put(DESCRIPTION_WORK, work.description)
+        contentValues.put(DATE_START_PROJECT, work.date_start)
+        contentValues.put(DATE_END_WORK, work.date_end)
+        contentValues.put(PERSON_WORK, work.person)
+        contentValues.put(ROLE_WORK, work.role)
+        contentValues.put(FINISH_WORK, work.finish)
+
+        val success = db.insert(TABLE_WORKS, null, contentValues)
+        db.close()
+
+        return success
+    }
+
+    @SuppressLint("Range")
+    fun GetAllWorks(): ArrayList<Work> {
+        val workList: ArrayList<Work> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_WORKS"
+        val db = this.readableDatabase
+
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(selectQuery, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+
+        var id_work: Int
+        var id_project: Int
+        var id_user: Int
+        var title: String
+        var description: String
+        var date_start: String
+        var date_end: String
+        var person: String
+        var role: String
+        var finish: String
+
+        if(cursor.moveToFirst()) {
+            do {
+                id_work = cursor.getInt(cursor.getColumnIndex(ID_WORK))
+                id_project = cursor.getInt(cursor.getColumnIndex(ID_PROJECT_WORK))
+                id_user = cursor.getInt(cursor.getColumnIndex(ID_USER_WORK))
+                title = cursor.getString(cursor.getColumnIndex(TITLE_WORK))
+                description = cursor.getString(cursor.getColumnIndex(DESCRIPTION_WORK))
+                date_start = cursor.getString(cursor.getColumnIndex(DATE_START_WORK))
+                date_end = cursor.getString(cursor.getColumnIndex(DATE_END_WORK))
+                person = cursor.getString(cursor.getColumnIndex(PERSON_WORK))
+                role = cursor.getString(cursor.getColumnIndex(ROLE_WORK))
+                finish = cursor.getString(cursor.getColumnIndex(FINISH_WORK))
+
+                val work = Work(id_work, id_project, id_user, title, description, date_start, date_end, person, role, finish)
+                workList.add(work)
+            } while (cursor.moveToNext())
+        }
+
+        return workList
+    }
+
+    fun UpdateWork(work: Work): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_WORK, work.id)
+        contentValues.put(ID_PROJECT_WORK, work.id_project)
+        contentValues.put(ID_USER_WORK, work.id_user)
+        contentValues.put(TITLE_WORK, work.title)
+        contentValues.put(DESCRIPTION_WORK, work.description)
+        contentValues.put(DATE_START_WORK, work.date_start)
+        contentValues.put(DATE_END_WORK, work.date_end)
+        contentValues.put(PERSON_WORK, work.person)
+        contentValues.put(ROLE_WORK, work.role)
+        contentValues.put(FINISH_WORK, work.finish)
+
+        val success = db.update(TABLE_WORKS, contentValues, ID_WORK + "=" + work.id, null)
+        db.close()
+
+        return success
+    }
+
+    fun UpdateWorkFinish(id: Int, finish: String): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(FINISH_WORK, finish)
+
+        val success = db.update(TABLE_WORKS, contentValues, ID_WORK + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteWork(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_WORK, id)
+
+        val success = db.delete(TABLE_WORKS, ID_WORK + "=" + id, null)
         db.close()
 
         return success

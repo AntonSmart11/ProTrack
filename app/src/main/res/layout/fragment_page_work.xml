@@ -41,6 +41,7 @@
                             android:src="@drawable/arrow_back" />
 
                         <TextView
+                            android:id="@+id/titleWorkPage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -81,6 +82,7 @@
                             android:textSize="17sp"/>
 
                         <TextView
+                            android:id="@+id/descriptionWorkPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -100,10 +102,35 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_bold"
+                            android:text="Fecha de inicio:"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/dateStartWorkPage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="20 - 06 - 2024"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
                             android:text="Fecha de entrega estimada:"
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/dateEndWorkPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -127,6 +154,7 @@
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/personWorkPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -150,12 +178,52 @@
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/rolWorkPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/roboto_regular"
                             android:text="Diseñador"
                             android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutFinish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="TAREA TERMINADA"
+                            android:textAlignment="center"
+                            android:textSize="20sp"
+                            android:textColor="@color/primaryColor"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/finishWork"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="10dp"
+                            android:backgroundTint="@color/success"
+                            android:text="Terminado"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/roboto_regular"/>
 
                     </LinearLayout>
 
@@ -167,6 +235,7 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/editWork"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -177,6 +246,7 @@
                             android:fontFamily="@font/roboto_regular"/>
 
                         <Button
+                            android:id="@+id/deleteWork"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

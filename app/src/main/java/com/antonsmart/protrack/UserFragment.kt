@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.antonsmart.protrack.database.SQLiteHelper
@@ -49,7 +50,8 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         }
 
         binding.arrowBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            val navController = Navigation.findNavController(view)
+            navController.navigateUp()
         }
     }
 

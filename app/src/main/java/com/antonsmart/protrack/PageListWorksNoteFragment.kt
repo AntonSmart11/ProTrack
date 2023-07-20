@@ -23,11 +23,6 @@ class PageListWorksNoteFragment : Fragment(R.layout.fragment_page_list_works_not
         binding = DataBindingUtil.bind(view)!!
 
         listWorks.clear()
-        listWorks.add(Work("Tarea 1"))
-        listWorks.add(Work("Tarea 2"))
-        listWorks.add(Work("Tarea 3"))
-        listWorks.add(Work("Tarea 4"))
-        listWorks.add(Work("Tarea 5"))
 
         setAdapter()
 

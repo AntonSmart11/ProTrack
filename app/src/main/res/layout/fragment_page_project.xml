@@ -111,11 +111,35 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_bold"
+                            android:text="Fecha de inicio:"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/dateStartProjectPage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="20 - 06 - 2024"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
                             android:text="Fecha de entrega estimada:"
                             android:textSize="17sp" />
 
                         <TextView
-                            android:id="@+id/dateProjectPage"
+                            android:id="@+id/dateEndProjectPage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -139,48 +163,74 @@
                             android:textSize="17sp" />
 
                         <LinearLayout
-                            android:id="@+id/progressBar"
+                            android:id="@+id/noWorks"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            android:orientation="horizontal"
-                            android:background="@drawable/custom_progress_bar">
+                            android:visibility="visible">
 
-                            <LinearLayout
-                                android:id="@+id/progressBarColor1"
-                                android:orientation="horizontal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.2"
-                                android:background="@drawable/custom_progress_bar_color1"
-                                tools:ignore="Suspicious0dp" />
-
-                            <LinearLayout
-                                android:id="@+id/progressBarColor2"
-                                android:orientation="horizontal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.8"
-                                android:background="@drawable/custom_progress_bar_color2"
-                                tools:ignore="Suspicious0dp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Todavía no se agregan tareas a este proyecto."
+                                android:textSize="16sp"/>
 
                         </LinearLayout>
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/worksBar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="60%"
-                            android:textSize="15sp"
-                            android:textAlignment="center"/>
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="Se han completado % tareas de un total de % tareas."
-                            android:textSize="16sp"/>
+                            <LinearLayout
+                                android:id="@+id/progressBar"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                android:background="@drawable/custom_progress_bar">
 
+                                <LinearLayout
+                                    android:id="@+id/progressBarColor1"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.2"
+                                    android:background="@drawable/custom_progress_bar_color1"
+                                    tools:ignore="Suspicious0dp" />
+
+                                <LinearLayout
+                                    android:id="@+id/progressBarColor2"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.8"
+                                    android:background="@drawable/custom_progress_bar_color2"
+                                    tools:ignore="Suspicious0dp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/workPorcentComplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="60%"
+                                android:textSize="15sp"
+                                android:textAlignment="center"/>
+
+                            <TextView
+                                android:id="@+id/workCompleteText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Se han completado % tareas de un total de % tareas."
+                                android:textSize="16sp"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

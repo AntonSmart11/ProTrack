@@ -45,7 +45,7 @@
                 android:textColor="#000000"/>
 
             <EditText
-                android:id="@+id/dateProjectEditText"
+                android:id="@+id/dateStartProjectEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -54,7 +54,22 @@
                 android:fontFamily="@font/roboto_regular"
                 android:clickable="false"
                 android:focusable="false"
-                android:hint="Fecha estimada"
+                android:hint="Fecha de inicio"
+                android:inputType="date"
+                android:singleLine="true"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/dateEndProjectEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="Fecha de entrega estimada"
                 android:inputType="date"
                 android:singleLine="true"
                 android:textColor="#000000"/>
