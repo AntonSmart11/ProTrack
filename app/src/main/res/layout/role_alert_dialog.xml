@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="@dimen/alert_dialog_text_width"
                 android:layout_height="wrap_content"
-                android:text="Crear role"
+                android:text="Role"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:paddingStart="65dp"
@@ -31,13 +31,14 @@
                 android:textAlignment="center"/>
 
             <EditText
+                android:id="@+id/nameRoleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/roboto_regular"
-                android:hint="Rol"
+                android:hint="Nombre del role"
                 android:singleLine="true"
                 android:textColor="#000000"/>
 

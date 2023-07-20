@@ -42,6 +42,7 @@
                     android:src="@drawable/arrow_back" />
 
                 <TextView
+                    android:id="@+id/titleRolePage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -82,6 +83,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/roleName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
@@ -98,6 +100,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/editRole"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -108,6 +111,7 @@
                         android:fontFamily="@font/roboto_regular"/>
 
                     <Button
+                        android:id="@+id/deleteRole"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

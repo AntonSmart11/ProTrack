@@ -164,7 +164,15 @@
         android:id="@+id/pageRoleFragment"
         android:name="com.antonsmart.protrack.PageRoleFragment"
         android:label="fragment_page_role"
-        tools:layout="@layout/fragment_page_role" />
+        tools:layout="@layout/fragment_page_role" >
+        <argument
+            android:name="id_role"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_pageRoleFragment_to_roleFragment"
+            app:destination="@id/roleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pageReminderDataFragment"
         android:name="com.antonsmart.protrack.PageReminderDataFragment"
