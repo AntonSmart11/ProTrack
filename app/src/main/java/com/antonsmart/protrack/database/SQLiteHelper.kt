@@ -7,6 +7,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.antonsmart.protrack.objects.Project
+import com.antonsmart.protrack.objects.Role
 import com.antonsmart.protrack.objects.User
 import com.antonsmart.protrack.objects.Work
 import kotlin.Exception
@@ -49,6 +50,12 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         private const val ROLE_WORK = "role"
         private const val FINISH_WORK = "finish"
 
+        //Table of roles
+        private const val TABLE_ROLES = "roles"
+        private const val ID_ROLE = "id_roles"
+        private const val ID_USER_ROLE = "id_user"
+        private const val NAME_ROLE = "name"
+
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -82,15 +89,23 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                 FINISH_WORK + " TEXT"
                 +")")
 
+        val TABLE_ROLES = ("CREATE TABLE " + TABLE_ROLES + "("+
+                ID_ROLE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ID_USER_ROLE + " INTEGER," +
+                NAME_ROLE + " TEXT"
+                +")")
+
         db?.execSQL(TABLE_USERS)
         db?.execSQL(TABLE_PROJECTS)
         db?.execSQL(TABLE_WORKS)
+        db?.execSQL(TABLE_ROLES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_USERS")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_PROJECTS")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_WORKS")
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_ROLES")
         onCreate(db)
     }
 
@@ -370,6 +385,83 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_WORK, id)
 
         val success = db.delete(TABLE_WORKS, ID_WORK + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+
+    //Role
+    fun InsertRole(role: Role): Long {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER_PROJECT, role.id_user)
+        contentValues.put(NAME_ROLE,role.name)
+
+        val success = db.insert(TABLE_ROLES, null, contentValues)
+        db.close()
+        return success
+    }
+
+
+    @SuppressLint("Range")
+    fun GetAllRoles(): ArrayList<Role> {
+        val roleList: ArrayList<Role> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_ROLES"
+        val db = this.writableDatabase
+
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(selectQuery, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+
+        var id : Int
+        var id_user : Int
+        var name : String
+
+        if(cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(ID_ROLE))
+                id_user = cursor.getInt(cursor.getColumnIndex(ID_USER_ROLE))
+                name = cursor.getString(cursor.getColumnIndex(NAME_ROLE))
+
+                val role = Role(id, id_user, name)
+                roleList.add(role)
+
+            } while (cursor.moveToNext())
+        }
+
+        return roleList
+    }
+
+
+    fun UpdateRole(role: Role): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_ROLE,role.id)
+        contentValues.put(ID_USER_ROLE,role.id_user)
+        contentValues.put(NAME_ROLE,role.name)
+
+        val success = db.update(TABLE_ROLES,contentValues, ID_ROLE + "=" + role.id,null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteRole(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_ROLE, id)
+
+        val success = db.delete(TABLE_ROLES, ID_ROLE + "=" + id, null)
         db.close()
 
         return success

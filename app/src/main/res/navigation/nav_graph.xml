@@ -114,7 +114,11 @@
         android:id="@+id/roleFragment"
         android:name="com.antonsmart.protrack.RoleFragment"
         android:label="fragment_role"
-        tools:layout="@layout/fragment_role" />
+        tools:layout="@layout/fragment_role" >
+        <action
+            android:id="@+id/action_roleFragment_to_pageRoleFragment"
+            app:destination="@id/pageRoleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reminderFragment"
         android:name="com.antonsmart.protrack.RemindersFragment"
@@ -159,5 +163,27 @@
         android:id="@+id/pageReminderFragment"
         android:name="com.antonsmart.protrack.PageReminderFragment"
         android:label="fragment_page_reminder"
-        tools:layout="@layout/fragment_page_reminder" />
+        tools:layout="@layout/fragment_page_reminder" >
+        <action
+            android:id="@+id/action_pageReminderFragment_to_pageReminderDataFragment"
+            app:destination="@id/pageReminderDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageRoleFragment"
+        android:name="com.antonsmart.protrack.PageRoleFragment"
+        android:label="fragment_page_role"
+        tools:layout="@layout/fragment_page_role" >
+        <argument
+            android:name="id_role"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_pageRoleFragment_to_roleFragment"
+            app:destination="@id/roleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageReminderDataFragment"
+        android:name="com.antonsmart.protrack.PageReminderDataFragment"
+        android:label="fragment_page_reminder_data"
+        tools:layout="@layout/fragment_page_reminder_data" />
 </navigation>

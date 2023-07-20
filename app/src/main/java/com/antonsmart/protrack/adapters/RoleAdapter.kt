@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.antonsmart.protrack.ProjectFragmentDirections
 import com.antonsmart.protrack.R
+import com.antonsmart.protrack.RoleFragmentDirections
 import com.antonsmart.protrack.objects.Role
 
 class RoleAdapter(var context:Context, var listRoles: MutableList<Role>):RecyclerView.Adapter<RoleAdapter.MyHolder>(){
@@ -34,11 +37,16 @@ class RoleAdapter(var context:Context, var listRoles: MutableList<Role>):Recycle
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         var role = listRoles[position]
-        holder.title.text = role.title
+        holder.title.text = role.name
 
         val backgrounds = arrayOf(R.drawable.item_recycler_view1,R.drawable.item_recycler_view2)
         val background = backgrounds[position % backgrounds.size]
         holder.item.setBackgroundResource(background)
-    }
 
+        holder.item.setOnClickListener {
+            val navController = Navigation.findNavController(holder.itemView)
+            val action = RoleFragmentDirections.actionRoleFragmentToPageRoleFragment(role.id)
+            navController.navigate(action)
+        }
+    }
 }
