@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.R
+import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.Note
 import com.antonsmart.protrack.objects.Project
 
@@ -31,8 +32,8 @@ class NoteListProjectsWithoutButtonsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        val note = listProjects[position]
-        holder.title.text = note.title
+        val project = listProjects[position]
+        holder.title.text = project.title
 
         val backgrounds = arrayOf(R.drawable.item_recycler_view1, R.drawable.item_recycler_view2)
         val background = backgrounds[position % backgrounds.size]
@@ -41,6 +42,8 @@ class NoteListProjectsWithoutButtonsAdapter(
         holder.item.setOnClickListener {
             val navController = Navigation.findNavController(holder.itemView)
             navController.navigate(R.id.action_noteFragment_to_pageListWorksNoteFragment)
+
+            Global.idProject = project.id
         }
     }
 }

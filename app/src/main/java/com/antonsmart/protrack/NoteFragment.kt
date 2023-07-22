@@ -2,6 +2,7 @@ package com.antonsmart.protrack
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -30,6 +31,7 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         binding = DataBindingUtil.bind(view)!!
 
         sqliteHelper = SQLiteHelper(requireContext())
+
 
         getProjects(Global.idUser)
 

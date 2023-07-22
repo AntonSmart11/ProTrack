@@ -38,8 +38,6 @@ class PageRoleFragment : Fragment(R.layout.fragment_page_role) {
         val roleId = args.idRole
 
 
-        Log.d("id del role",roleId.toString())
-
         val role = getRole(roleId)
 
 
@@ -132,8 +130,6 @@ class PageRoleFragment : Fragment(R.layout.fragment_page_role) {
     private fun getRole(id: Int): Role {
         val roleList = sqLiteHelper.GetAllRoles()
         val role = roleList.find { it.id == id }
-
-        Log.d("error roles",role.toString())
 
         return role!!
     }

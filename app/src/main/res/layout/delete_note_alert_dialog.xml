@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/alert_dialog_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="@dimen/alert_dialog_text_width"
+            android:layout_height="wrap_content"
+            android:text="Eliminar nota"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="65dp"
+            android:paddingEnd="65dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="25sp"
+            android:textColor="@color/red"
+            android:textAlignment="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancelDeleteNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/primaryColor"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Cancelar"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnNextDeleteNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/red"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Eliminar"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -109,5 +109,4 @@ class RoleFragment : Fragment(R.layout.fragment_role) {
             listRoles.add(Role(role.id,role.id_user,role.name))
         }
     }
-
 }

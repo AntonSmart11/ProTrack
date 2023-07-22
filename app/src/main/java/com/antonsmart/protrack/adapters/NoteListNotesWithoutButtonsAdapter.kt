@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.R
+import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.Note
+import com.antonsmart.protrack.pageListNotesFragmentDirections
 
 class NoteListNotesWithoutButtonsAdapter(
     private val context: Context,
@@ -38,8 +40,11 @@ class NoteListNotesWithoutButtonsAdapter(
         holder.item.setBackgroundResource(background)
 
         holder.item.setOnClickListener{
+            Global.idNote = note.id
+
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_pageListNotesFragment_to_pageNoteFragment)
+            val action = pageListNotesFragmentDirections.actionPageListNotesFragmentToPageNoteFragment(note.id)
+            navController.navigate(action)
         }
     }
 }

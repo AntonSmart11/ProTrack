@@ -6,6 +6,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.antonsmart.protrack.objects.Note
 import com.antonsmart.protrack.objects.Project
 import com.antonsmart.protrack.objects.Role
 import com.antonsmart.protrack.objects.User
@@ -56,6 +57,13 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         private const val ID_USER_ROLE = "id_user"
         private const val NAME_ROLE = "name"
 
+        //Table of notes
+        private const val TABLE_NOTES = "notes"
+        private const val ID_NOTE = "id_note"
+        private const val ID_WORK_NOTE = "id_work"
+        private const val TITLE_NOTE = "title"
+        private const val DESCRIPTION_NOTE = "description"
+
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -95,10 +103,18 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                 NAME_ROLE + " TEXT"
                 +")")
 
+        val TABLE_NOTES = ("CREATE TABLE "+ TABLE_NOTES + "("+
+                ID_NOTE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ID_WORK_NOTE + " INTEGER," +
+                TITLE_NOTE + " TEXT," +
+                DESCRIPTION_NOTE + " TEXT"
+                +")")
+
         db?.execSQL(TABLE_USERS)
         db?.execSQL(TABLE_PROJECTS)
         db?.execSQL(TABLE_WORKS)
         db?.execSQL(TABLE_ROLES)
+        db?.execSQL(TABLE_NOTES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -106,6 +122,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_PROJECTS")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_WORKS")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_ROLES")
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_NOTES")
         onCreate(db)
     }
 
@@ -462,6 +479,84 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_ROLE, id)
 
         val success = db.delete(TABLE_ROLES, ID_ROLE + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+
+    //Notas
+    fun InsertNote(note: Note): Long {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_WORK_NOTE,note.id_work)
+        contentValues.put(TITLE_NOTE,note.title)
+        contentValues.put(DESCRIPTION_NOTE,note.description)
+
+        val success = db.insert(TABLE_NOTES, null, contentValues)
+        db.close()
+        return success
+    }
+
+    @SuppressLint("Range")
+    fun GetAllNotes(): ArrayList<Note> {
+        val noteList: ArrayList<Note> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_NOTES"
+        val db = this.writableDatabase
+
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(selectQuery, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+
+        var id : Int
+        var id_work : Int
+        var title : String
+        var description : String
+
+        if(cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(ID_NOTE))
+                id_work = cursor.getInt(cursor.getColumnIndex(ID_WORK_NOTE))
+                title = cursor.getString(cursor.getColumnIndex(TITLE_NOTE))
+                description = cursor.getString(cursor.getColumnIndex(DESCRIPTION_NOTE))
+
+                val note = Note(id, id_work, title, description)
+                noteList.add(note)
+
+            } while (cursor.moveToNext())
+        }
+
+        return noteList
+    }
+
+    fun UpdateNote(note: Note): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_WORK_NOTE,note.id_work)
+        contentValues.put(TITLE_NOTE,note.title)
+        contentValues.put(DESCRIPTION_NOTE,note.description)
+
+        val success = db.update(TABLE_NOTES,contentValues, ID_NOTE + "=" + note.id,null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteNote(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_NOTE, id)
+
+        val success = db.delete(TABLE_NOTES, ID_NOTE + "=" + id, null)
         db.close()
 
         return success

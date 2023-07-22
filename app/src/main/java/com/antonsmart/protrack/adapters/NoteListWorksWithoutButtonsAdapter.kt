@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.antonsmart.protrack.PageListWorksNoteFragmentDirections
 import com.antonsmart.protrack.R
+import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.Work
 
 class NoteListWorksWithoutButtonsAdapter(
@@ -30,16 +32,22 @@ class NoteListWorksWithoutButtonsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        val note = listWorks[position]
-        holder.title.text = note.title
+        val work = listWorks[position]
+        holder.title.text = work.title
+
 
         val backgrounds = arrayOf(R.drawable.item_recycler_view1, R.drawable.item_recycler_view2)
         val background = backgrounds[position % backgrounds.size]
         holder.item.setBackgroundResource(background)
 
+
         holder.item.setOnClickListener{
+            Global.idWork = work.id
+
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_pageListWorksNoteFragment_to_pageListNotesFragment)
+            val action = PageListWorksNoteFragmentDirections.actionPageListWorksNoteFragmentToPageListNotesFragment()
+            navController.navigate(action)
         }
+
     }
 }

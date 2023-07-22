@@ -144,6 +144,10 @@
         <action
             android:id="@+id/action_pageListWorksNoteFragment_to_pageListNotesFragment"
             app:destination="@id/pageListNotesFragment" />
+        <argument
+            android:name="id_work"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/pageListNotesFragment"
@@ -153,12 +157,24 @@
         <action
             android:id="@+id/action_pageListNotesFragment_to_pageNoteFragment"
             app:destination="@id/pageNoteFragment" />
+        <argument
+            android:name="id_work"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/pageNoteFragment"
         android:name="com.antonsmart.protrack.PageNoteFragment"
         android:label="fragment_page_note"
-        tools:layout="@layout/fragment_page_note" />
+        tools:layout="@layout/fragment_page_note" >
+        <argument
+            android:name="id_note"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_pageNoteFragment_to_pageListNotesFragment"
+            app:destination="@id/pageListNotesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pageReminderFragment"
         android:name="com.antonsmart.protrack.PageReminderFragment"

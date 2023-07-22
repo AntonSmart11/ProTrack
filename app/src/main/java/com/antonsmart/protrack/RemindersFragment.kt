@@ -51,7 +51,7 @@ class RemindersFragment : Fragment(R.layout.fragment_reminders) {
         listProjects.clear()
 
         for (project in projects) {
-            listProjects.add(Project(project.id, project.id_user, project.title, project.date, project.description))
+            listProjects.add(Project(project.id, project.id_user, project.title, project.date_start, project.date_end, project.description))
         }
     }
 
