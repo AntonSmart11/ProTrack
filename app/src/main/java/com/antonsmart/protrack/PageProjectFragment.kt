@@ -181,6 +181,12 @@ class PageProjectFragment : Fragment(R.layout.fragment_page_project) {
                 dateEndEditText.setText(formattedDate)
             }, year, month, day)
 
+            //Set min date
+            val calendarMin = Calendar.getInstance()
+            calendarMin.set(calendarMin.get(Calendar.YEAR), calendarMin.get(Calendar.MONTH), calendarMin.get(Calendar.DAY_OF_MONTH))
+            val minDate = calendarMin.timeInMillis
+            datePickerDialog.datePicker.minDate = minDate
+
             datePickerDialog.show()
         }
 

@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -24,6 +26,7 @@ import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentPageWorkBinding
 import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.Work
+import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -32,6 +35,8 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
     private lateinit var binding: FragmentPageWorkBinding
     private val args: PageWorkFragmentArgs by navArgs()
     private lateinit var sqliteHelper: SQLiteHelper
+    private lateinit var autoCompleteRole: AutoCompleteTextView
+    private lateinit var adapterItemsRole: ArrayAdapter<String>
 
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -150,10 +155,14 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
         val id_project = Global.idProject
         val titleEditText = dialogLayout.findViewById<EditText>(R.id.titleWorkEditText)
         val personEditText = dialogLayout.findViewById<EditText>(R.id.personWorkEditText)
-        val roleEditText = dialogLayout.findViewById<EditText>(R.id.roleWorkEditText)
         val dateStartEditText = dialogLayout.findViewById<EditText>(R.id.dateStartWorkEditText)
         val dateEndEditText = dialogLayout.findViewById<EditText>(R.id.dateEndWorkEditText)
         val descriptionEditText = dialogLayout.findViewById<EditText>(R.id.descriptionWorkEditText)
+        val roleTextInputLayout = dialogLayout.findViewById<TextInputLayout>(R.id.roleTextInputLayout)
+
+        val roles = getRoles(Global.idUser)
+
+        autoCompleteRole = dialogLayout.findViewById(R.id.list_role)
 
         dateStartEditText.setOnClickListener {
             val c = Calendar.getInstance()
@@ -241,23 +250,30 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
 
         titleEditText.setText(work.title)
         personEditText.setText(work.person)
-        roleEditText.setText(work.role)
         dateStartEditText.setText(work.date_start)
         dateEndEditText.setText(work.date_end)
         descriptionEditText.setText(work.description)
+
+        autoCompleteRole.setText(work.role)
+        autoCompleteRole.setSelection(work.role.length)
+
+        adapterItemsRole = ArrayAdapter<String>(requireContext(), R.layout.list_item_role, roles)
+
+        autoCompleteRole.setAdapter(adapterItemsRole)
 
         val nextButton = dialog.findViewById<ImageButton>(R.id.nextWorkButton)
         nextButton.setOnClickListener {
             val title = titleEditText.text.toString()
             val person = personEditText.text.toString()
-            val role = roleEditText.text.toString()
             val date_start = dateStartEditText.text.toString()
             val date_end = dateEndEditText.text.toString()
             val description = descriptionEditText.text.toString()
+            val roleTextInputEditText = roleTextInputLayout.editText
+            val role = roleTextInputEditText?.text?.toString()
 
             if(!title.isEmpty()) {
                 if(!person.isEmpty()) {
-                    if (!role.isEmpty()) {
+                    if (!role!!.isEmpty()) {
                         if (!date_start.isEmpty()) {
                             if(!date_end.isEmpty()) {
                                 if(!description.isEmpty()) {
@@ -307,8 +323,32 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
     private fun getWork(id: Int): Work {
         val workList = sqliteHelper.GetAllWorks()
         val work = workList.find { it.id == id }
-        
+
         return work!!
+    }
+
+    private fun getRoles(id: Int): ArrayList<String> {
+        val roleList = sqliteHelper.GetAllRoles()
+        val roles = roleList.filter { it.id_user == id }
+        var listRoles: ArrayList<String> = ArrayList()
+
+        listRoles.clear()
+
+        for (role in roles){
+            listRoles.add(role.name)
+        }
+
+        return  listRoles
+    }
+
+    private fun getRolesPosition(roles: ArrayList<String>, role: String): Int {
+        var position = roles.indexOf(role)
+
+        if(position == -1) {
+            position = 0
+        }
+
+        return position
     }
 
     private fun minDate(id: Int): String {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -53,17 +54,26 @@
                 android:singleLine="true"
                 android:textColor="#000000"/>
 
-            <EditText
-                android:id="@+id/roleWorkEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/roleTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:fontFamily="@font/roboto_regular"
+                app:boxStrokeColor="@color/primaryColor"
+                app:boxBackgroundColor="@color/secondaryColor"
                 android:hint="Rol"
-                android:singleLine="true"
-                android:textColor="#000000"/>
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/list_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="9dp"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <EditText
                 android:id="@+id/dateStartWorkEditText"

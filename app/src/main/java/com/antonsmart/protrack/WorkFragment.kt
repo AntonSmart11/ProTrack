@@ -3,8 +3,11 @@ package com.antonsmart.protrack
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -16,10 +19,13 @@ import com.antonsmart.protrack.adapters.WorkAdapter
 import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentWorkBinding
 import com.antonsmart.protrack.global.Global
+import com.antonsmart.protrack.objects.Role
 import com.antonsmart.protrack.objects.Work
+import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.collections.ArrayList
 
 class WorkFragment : Fragment(R.layout.fragment_work) {
 
@@ -27,6 +33,8 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
     private var listWorks: MutableList<Work> = mutableListOf()
     private lateinit var recycler: RecyclerView
     private lateinit var sqliteHelper: SQLiteHelper
+    private lateinit var autoCompleteRole: AutoCompleteTextView
+    private lateinit var adapterItemsRole: ArrayAdapter<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,10 +71,18 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
         val id_project = Global.idProject
         val titleEditText = dialogLayout.findViewById<EditText>(R.id.titleWorkEditText)
         val personEditText = dialogLayout.findViewById<EditText>(R.id.personWorkEditText)
-        val roleEditText = dialogLayout.findViewById<EditText>(R.id.roleWorkEditText)
         val dateStartEditText = dialogLayout.findViewById<EditText>(R.id.dateStartWorkEditText)
         val dateEndEditText = dialogLayout.findViewById<EditText>(R.id.dateEndWorkEditText)
         val descriptionEditText = dialogLayout.findViewById<EditText>(R.id.descriptionWorkEditText)
+        val roleTextInputLayout = dialogLayout.findViewById<TextInputLayout>(R.id.roleTextInputLayout)
+
+        val roles = getRoles(Global.idUser)
+
+        autoCompleteRole = dialogLayout.findViewById(R.id.list_role)
+
+        adapterItemsRole = ArrayAdapter<String>(requireContext(), R.layout.list_item_role, roles)
+
+        autoCompleteRole.setAdapter(adapterItemsRole)
 
         dateStartEditText.setOnClickListener {
             val c = Calendar.getInstance()
@@ -92,8 +108,6 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt(), dayMinPart.toInt())
             val minDate = calendarMin.timeInMillis
             datePickerDialog.datePicker.minDate = minDate
-
-            datePickerDialog.show()
 
             //Set max date
             val maxDateParts = maxDate(id_project)
@@ -135,8 +149,6 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             val minDate = calendarMin.timeInMillis
             datePickerDialog.datePicker.minDate = minDate
 
-            datePickerDialog.show()
-
             //Set max date
             val maxDateParts = maxDate(id_project)
             val maxParts = maxDateParts.split("-")
@@ -148,18 +160,22 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt(), dayMaxPart.toInt())
             val maxDate = calendarMax.timeInMillis
             datePickerDialog.datePicker.maxDate = maxDate
+
+            datePickerDialog.show()
         }
 
         val nextButton = dialog.findViewById<ImageButton>(R.id.nextWorkButton)
         nextButton.setOnClickListener {
             val title = titleEditText.text.toString()
             val person = personEditText.text.toString()
-            val role = roleEditText.text.toString()
             val date_start = dateStartEditText.text.toString()
             val date_end = dateEndEditText.text.toString()
             val description = descriptionEditText.text.toString()
+            val roleTextInputEditText = roleTextInputLayout.editText
+            val role = roleTextInputEditText?.text?.toString()
 
-            val success = addWork(id_project, title, person, role, date_start, date_end, description)
+            val success = addWork(id_project, title, person,
+                role!!, date_start, date_end, description)
 
             if(success) {
                 getWorks(Global.idProject)
@@ -218,6 +234,20 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
         for (work in works){
             listWorks.add(Work(work.id, work.id_project, work.id_user, work.title, work.description, work.date_start, work.date_end, work.person, work.role, work.finish))
         }
+    }
+
+    private fun getRoles(id: Int): ArrayList<String> {
+        val roleList = sqliteHelper.GetAllRoles()
+        val roles = roleList.filter { it.id_user == id }
+        var listRoles: ArrayList<String> = ArrayList()
+
+        listRoles.clear()
+
+        for (role in roles){
+            listRoles.add(role.name)
+        }
+
+        return  listRoles
     }
 
     private fun minDate(id: Int): String {

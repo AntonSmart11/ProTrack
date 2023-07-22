@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonsmart.protrack.adapters.NoteListWorksWithoutButtonsAdapter
@@ -38,7 +39,7 @@ class PageListWorksNoteFragment : Fragment(R.layout.fragment_page_list_works_not
         setAdapter()
 
         binding.arrowBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().navigateUp()
         }
     }
 

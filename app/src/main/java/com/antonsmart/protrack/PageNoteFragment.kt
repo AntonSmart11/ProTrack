@@ -79,7 +79,7 @@ class PageNoteFragment : Fragment(R.layout.fragment_page_note) {
         nextButton.setOnClickListener {
             sqLiteHelper.DeleteNote(id)
             dialog.dismiss()
-            findNavController().navigate(R.id.action_pageNoteFragment_to_pageListNotesFragment)
+            findNavController().navigateUp()
         }
 
         cancelButton.setOnClickListener {

@@ -36,7 +36,6 @@ class pageListNotesFragment : Fragment(R.layout.fragment_page_list_notes) {
         val id_work = Global.idWork
         getNotes(id_work)
 
-
         setAdapter()
 
         binding.addNote.setOnClickListener {
