@@ -2,6 +2,7 @@ package com.antonsmart.protrack
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -64,8 +65,17 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         val cancelButton = dialog.findViewById<Button>(R.id.btnCancelDeleteUser)
 
         nextButton.setOnClickListener {
+            sqliteHelper.DeleteWorkUser(id)
+            sqliteHelper.DeleteRoleUser(id)
+            sqliteHelper.DeleteProjectUser(id)
             sqliteHelper.DeleteUser(id)
             dialog.dismiss()
+            val sharedPrefs = requireContext().getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+            val editor = sharedPrefs.edit()
+            editor.putBoolean("session_active", false)
+            editor.putInt("id_user", 0)
+            editor.apply()
+            Global.idUser = 0
             findNavController().navigate(R.id.action_userFragment_to_loginFragment)
         }
 

@@ -122,6 +122,7 @@ class PageProjectFragment : Fragment(R.layout.fragment_page_project) {
         val cancelButton = dialog.findViewById<Button>(R.id.btnCancelDeleteProject)
 
         nextButton.setOnClickListener {
+            sqliteHelper.DeleteWorkProject(id)
             sqliteHelper.DeleteProject(id)
             dialog.dismiss()
             val navController = Navigation.findNavController(view)

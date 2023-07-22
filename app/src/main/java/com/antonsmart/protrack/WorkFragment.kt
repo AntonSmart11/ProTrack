@@ -105,7 +105,7 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             val yearMinPart = minParts[2]
 
             val calendarMin = Calendar.getInstance()
-            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt(), dayMinPart.toInt())
+            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt() - 1, dayMinPart.toInt())
             val minDate = calendarMin.timeInMillis
             datePickerDialog.datePicker.minDate = minDate
 
@@ -117,7 +117,7 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             val yearMaxPart = maxParts[2]
 
             val calendarMax = Calendar.getInstance()
-            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt(), dayMaxPart.toInt())
+            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt() - 1, dayMaxPart.toInt())
             val maxDate = calendarMax.timeInMillis
             datePickerDialog.datePicker.maxDate = maxDate
 
@@ -145,7 +145,7 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             val yearMinPart = minParts[2]
 
             val calendarMin = Calendar.getInstance()
-            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt(), dayMinPart.toInt())
+            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt() - 1, dayMinPart.toInt())
             val minDate = calendarMin.timeInMillis
             datePickerDialog.datePicker.minDate = minDate
 
@@ -157,7 +157,7 @@ class WorkFragment : Fragment(R.layout.fragment_work) {
             val yearMaxPart = maxParts[2]
 
             val calendarMax = Calendar.getInstance()
-            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt(), dayMaxPart.toInt())
+            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt() - 1, dayMaxPart.toInt())
             val maxDate = calendarMax.timeInMillis
             datePickerDialog.datePicker.maxDate = maxDate
 

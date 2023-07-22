@@ -65,6 +65,10 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
         val btnDelete = binding.deleteWork
         val btnFinish = binding.finishWork
 
+        val finish = FinishStatus(workId)
+
+        ChangeButtonFinish(finish, btnFinish)
+
         btnEdit.setOnClickListener {
             showEditWorkDialog(workId, work, title, description, date_start, date_end, person, role)
         }
@@ -78,15 +82,7 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
 
             val finish = FinishStatus(workId)
 
-            if(finish == "TRUE") {
-                btnFinish.setText("No terminado")
-                btnFinish.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.notSuccess))
-                binding.linearLayoutFinish.visibility = View.VISIBLE
-            } else {
-                btnFinish.setText("Terminado")
-                btnFinish.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.success))
-                binding.linearLayoutFinish.visibility = View.GONE
-            }
+            ChangeButtonFinish(finish, btnFinish)
         }
 
         binding.arrowBack.setOnClickListener {
@@ -113,6 +109,18 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
         } else {
             status = sqliteHelper.UpdateWorkFinish(id, "FALSE")
             Toast.makeText(requireContext(), "Tarea no terminada", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun ChangeButtonFinish(finish: String, btnFinish: Button) {
+        if(finish == "TRUE") {
+            btnFinish.setText("No terminado")
+            btnFinish.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.notSuccess))
+            binding.linearLayoutFinish.visibility = View.VISIBLE
+        } else {
+            btnFinish.setText("Terminado")
+            btnFinish.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.success))
+            binding.linearLayoutFinish.visibility = View.GONE
         }
     }
 
@@ -185,7 +193,7 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
             val yearMinPart = minParts[2]
 
             val calendarMin = Calendar.getInstance()
-            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt(), dayMinPart.toInt())
+            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt() - 1, dayMinPart.toInt())
             val minDate = calendarMin.timeInMillis
             datePickerDialog.datePicker.minDate = minDate
 
@@ -199,7 +207,7 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
             val yearMaxPart = maxParts[2]
 
             val calendarMax = Calendar.getInstance()
-            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt(), dayMaxPart.toInt())
+            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt() - 1, dayMaxPart.toInt())
             val maxDate = calendarMax.timeInMillis
             datePickerDialog.datePicker.maxDate = maxDate
 
@@ -227,7 +235,7 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
             val yearMinPart = minParts[2]
 
             val calendarMin = Calendar.getInstance()
-            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt(), dayMinPart.toInt())
+            calendarMin.set(yearMinPart.toInt(), monthMinPart.toInt() - 1, dayMinPart.toInt())
             val minDate = calendarMin.timeInMillis
             datePickerDialog.datePicker.minDate = minDate
 
@@ -241,7 +249,7 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
             val yearMaxPart = maxParts[2]
 
             val calendarMax = Calendar.getInstance()
-            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt(), dayMaxPart.toInt())
+            calendarMax.set(yearMaxPart.toInt(), monthMaxPart.toInt() - 1, dayMaxPart.toInt())
             val maxDate = calendarMax.timeInMillis
             datePickerDialog.datePicker.maxDate = maxDate
         }
@@ -339,16 +347,6 @@ class PageWorkFragment : Fragment(R.layout.fragment_page_work) {
         }
 
         return  listRoles
-    }
-
-    private fun getRolesPosition(roles: ArrayList<String>, role: String): Int {
-        var position = roles.indexOf(role)
-
-        if(position == -1) {
-            position = 0
-        }
-
-        return position
     }
 
     private fun minDate(id: Int): String {

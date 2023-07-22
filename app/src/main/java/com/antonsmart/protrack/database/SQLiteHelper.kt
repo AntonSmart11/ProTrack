@@ -293,6 +293,18 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         return success
     }
 
+    fun DeleteProjectUser(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER_PROJECT, id)
+
+        val success = db.delete(TABLE_PROJECTS, ID_USER_PROJECT + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
     //Works
     fun InsertWork(work: Work): Long {
         val db = this.writableDatabase
@@ -407,6 +419,30 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         return success
     }
 
+    fun DeleteWorkProject(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_PROJECT_WORK, id)
+
+        val success = db.delete(TABLE_WORKS, ID_PROJECT_WORK + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteWorkUser(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER_WORK, id)
+
+        val success = db.delete(TABLE_WORKS, ID_USER_WORK + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
 
     //Role
     fun InsertRole(role: Role): Long {
@@ -479,6 +515,18 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_ROLE, id)
 
         val success = db.delete(TABLE_ROLES, ID_ROLE + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteRoleUser(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER_ROLE, id)
+
+        val success = db.delete(TABLE_ROLES, ID_USER_ROLE + "=" + id, null)
         db.close()
 
         return success
