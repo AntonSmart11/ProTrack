@@ -201,5 +201,10 @@
         android:id="@+id/pageReminderDataFragment"
         android:name="com.antonsmart.protrack.PageReminderDataFragment"
         android:label="fragment_page_reminder_data"
-        tools:layout="@layout/fragment_page_reminder_data" />
+        tools:layout="@layout/fragment_page_reminder_data" >
+        <argument
+            android:name="id_reminder"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

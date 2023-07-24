@@ -109,7 +109,7 @@ class PageNoteFragment : Fragment(R.layout.fragment_page_note) {
 
             if (!titlePage.isEmpty()){
                 if (!noteDescription.isEmpty()){
-                    val note = Note(id,Global.idWork,titlePage,noteDescription)
+                    val note = Note(id,Global.idUser,Global.idWork,titlePage,noteDescription)
                     val status = sqLiteHelper.UpdateNote(note)
 
                     if(status  > -1) {
