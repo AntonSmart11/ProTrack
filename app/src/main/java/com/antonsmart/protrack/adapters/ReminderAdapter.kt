@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.antonsmart.protrack.PageReminderFragmentDirections
 import com.antonsmart.protrack.R
+import com.antonsmart.protrack.RemindersFragmentDirections
 import com.antonsmart.protrack.objects.Reminder
 
 
@@ -41,9 +43,12 @@ class ReminderAdapter (var context: Context,var listReminders:MutableList<Remind
         val background = backgrounds[position % backgrounds.size]
         holder.item.setBackgroundResource(background)
 
+
         holder.item.setOnClickListener {
+
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_pageReminderFragment_to_pageReminderDataFragment)
+            val action = PageReminderFragmentDirections.actionPageReminderFragmentToPageReminderDataFragment(reminder.id)
+            navController.navigate(action)
         }
     }
 

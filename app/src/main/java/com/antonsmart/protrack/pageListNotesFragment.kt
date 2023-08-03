@@ -18,10 +18,12 @@ import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentPageListNotesBinding
 import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.Note
+import com.antonsmart.protrack.objects.Work
 
 class pageListNotesFragment : Fragment(R.layout.fragment_page_list_notes) {
     private lateinit var binding: FragmentPageListNotesBinding
     private var listNotes: MutableList<Note> = mutableListOf()
+    private var listWorks: MutableList<Work> = mutableListOf()
     private lateinit var recycler: RecyclerView
     private lateinit var sqLiteHelper: SQLiteHelper
 
@@ -34,6 +36,7 @@ class pageListNotesFragment : Fragment(R.layout.fragment_page_list_notes) {
         sqLiteHelper = SQLiteHelper(requireContext())
 
         val id_work = Global.idWork
+
         getNotes(id_work)
 
         setAdapter()
@@ -89,7 +92,7 @@ class pageListNotesFragment : Fragment(R.layout.fragment_page_list_notes) {
             if (!title.isEmpty()) {
                 if (!description.isEmpty()) {
 
-                    val note = Note(0, id_work, title, description)
+                    val note = Note(0, Global.idUser ,id_work, title, description)
                     val status = sqLiteHelper.InsertNote(note)
 
                     if (status > -1) {
@@ -113,7 +116,22 @@ class pageListNotesFragment : Fragment(R.layout.fragment_page_list_notes) {
         listNotes.clear()
 
         for (note in notes){
-            listNotes.add(Note(note.id,note.id_work,note.title,note.description))
+            listNotes.add(Note(note.id,note.id_user,note.id_work,note.title,note.description))
         }
+
+        //Title page
+        val workList = sqLiteHelper.GetAllWorks()
+        val works = workList.filter { it.id == id }
+
+        listWorks.clear()
+
+        for (work in works){
+            listWorks.add(Work(work.id, work.id_project, work.id_user, work.title, work.description, work.date_start, work.date_end, work.person, work.role, work.finish))
+        }
+
+        val textViewTitle = binding.titleNotesList
+        val titlePage = listWorks[0]
+        val title = "Notas de '"+titlePage.title+"'"
+        textViewTitle.setText(title)
     }
 }

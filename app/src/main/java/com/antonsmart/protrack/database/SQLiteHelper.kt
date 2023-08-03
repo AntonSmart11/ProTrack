@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.antonsmart.protrack.objects.Note
 import com.antonsmart.protrack.objects.Project
+import com.antonsmart.protrack.objects.Reminder
 import com.antonsmart.protrack.objects.Role
 import com.antonsmart.protrack.objects.User
 import com.antonsmart.protrack.objects.Work
@@ -60,9 +61,19 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         //Table of notes
         private const val TABLE_NOTES = "notes"
         private const val ID_NOTE = "id_note"
+        private const val ID_USER_NOTE = "id_user"
         private const val ID_WORK_NOTE = "id_work"
         private const val TITLE_NOTE = "title"
         private const val DESCRIPTION_NOTE = "description"
+
+        //Table of reminders
+        private const val TABLE_REMINDERS = "reminders"
+        private const val ID_REMINDER = "id_reminder"
+        private const val ID_USER_REMINDER = "id_user"
+        private const val ID_PROJECT_REMINDER = "id_project"
+        private const val WORK_REMINDER = "work"
+        private const val TITLE_REMINDER = "title"
+        private const val DATE_REMINDER = "date"
 
     }
 
@@ -105,9 +116,19 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
         val TABLE_NOTES = ("CREATE TABLE "+ TABLE_NOTES + "("+
                 ID_NOTE + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ID_USER_NOTE + " INTEGER," +
                 ID_WORK_NOTE + " INTEGER," +
                 TITLE_NOTE + " TEXT," +
                 DESCRIPTION_NOTE + " TEXT"
+                +")")
+
+        val TABLE_REMINDERS = ("CREATE TABLE "+ TABLE_REMINDERS + "("+
+                ID_REMINDER + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ID_USER_REMINDER + " INTEGER," +
+                ID_PROJECT_REMINDER + " INTEGER," +
+                WORK_REMINDER + " TEXT," +
+                TITLE_REMINDER + " TEXT," +
+                DATE_REMINDER + " DATE"
                 +")")
 
         db?.execSQL(TABLE_USERS)
@@ -115,6 +136,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         db?.execSQL(TABLE_WORKS)
         db?.execSQL(TABLE_ROLES)
         db?.execSQL(TABLE_NOTES)
+        db?.execSQL(TABLE_REMINDERS)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -123,6 +145,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_WORKS")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_ROLES")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_NOTES")
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_REMINDERS")
         onCreate(db)
     }
 
@@ -538,6 +561,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
+        contentValues.put(ID_USER_NOTE,note.id_user)
         contentValues.put(ID_WORK_NOTE,note.id_work)
         contentValues.put(TITLE_NOTE,note.title)
         contentValues.put(DESCRIPTION_NOTE,note.description)
@@ -564,6 +588,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         }
 
         var id : Int
+        var id_user : Int
         var id_work : Int
         var title : String
         var description : String
@@ -571,11 +596,12 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         if(cursor.moveToFirst()) {
             do {
                 id = cursor.getInt(cursor.getColumnIndex(ID_NOTE))
+                id_user = cursor.getInt(cursor.getColumnIndex(ID_USER_NOTE))
                 id_work = cursor.getInt(cursor.getColumnIndex(ID_WORK_NOTE))
                 title = cursor.getString(cursor.getColumnIndex(TITLE_NOTE))
                 description = cursor.getString(cursor.getColumnIndex(DESCRIPTION_NOTE))
 
-                val note = Note(id, id_work, title, description)
+                val note = Note(id, id_user, id_work, title, description)
                 noteList.add(note)
 
             } while (cursor.moveToNext())
@@ -588,6 +614,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
+        contentValues.put(ID_USER_NOTE,note.id_user)
         contentValues.put(ID_WORK_NOTE,note.id_work)
         contentValues.put(TITLE_NOTE,note.title)
         contentValues.put(DESCRIPTION_NOTE,note.description)
@@ -605,6 +632,95 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_NOTE, id)
 
         val success = db.delete(TABLE_NOTES, ID_NOTE + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
+    //Reminder
+    fun InsertReminder(reminder: Reminder): Long {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER_REMINDER,reminder.id_user)
+        contentValues.put(ID_PROJECT_REMINDER,reminder.id_project)
+        contentValues.put(WORK_REMINDER,reminder.work)
+        contentValues.put(TITLE_REMINDER,reminder.title)
+        contentValues.put(DATE_REMINDER,reminder.date)
+
+        val success = db.insert(TABLE_REMINDERS, null, contentValues)
+        db.close()
+        return success
+
+
+        ///creación de recordatorio
+    }
+
+    @SuppressLint("Range")
+    fun GetAllReminders(): ArrayList<Reminder> {
+        val reminderList: ArrayList<Reminder> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_REMINDERS"
+        val db = this.writableDatabase
+
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(selectQuery, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+
+        var id : Int
+        var id_user : Int
+        var id_project : Int
+        var work : String
+        var title : String
+        var date : String
+
+        if(cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(ID_REMINDER))
+                id_user = cursor.getInt(cursor.getColumnIndex(ID_USER_REMINDER))
+                id_project = cursor.getInt(cursor.getColumnIndex(ID_PROJECT_REMINDER))
+                work = cursor.getString(cursor.getColumnIndex(WORK_REMINDER))
+                title = cursor.getString(cursor.getColumnIndex(TITLE_REMINDER))
+                date = cursor.getString(cursor.getColumnIndex(DATE_REMINDER))
+
+                val reminder = Reminder(id,title, id_user, id_project, work, date)
+                reminderList.add(reminder)
+
+            } while (cursor.moveToNext())
+        }
+
+        return reminderList
+    }
+
+    fun UpdateReminder(reminder: Reminder): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_REMINDER,reminder.id)
+        contentValues.put(ID_USER_REMINDER,reminder.id_user)
+        contentValues.put(ID_PROJECT_REMINDER,reminder.id_project)
+        contentValues.put(WORK_REMINDER,reminder.work)
+        contentValues.put(TITLE_REMINDER,reminder.title)
+        contentValues.put(DATE_REMINDER,reminder.date)
+
+        val success = db.update(TABLE_REMINDERS,contentValues, ID_REMINDER + "=" + reminder.id,null)
+        db.close()
+
+        return success
+    }
+
+    fun DeleteReminder(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_REMINDER, id)
+
+        val success = db.delete(TABLE_REMINDERS, ID_REMINDER + "=" + id, null)
         db.close()
 
         return success
