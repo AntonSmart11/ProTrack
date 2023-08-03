@@ -22,6 +22,7 @@ import com.antonsmart.protrack.global.Global
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.analytics.FirebaseAnalytics
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
@@ -32,6 +33,11 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
+
+        val analytics = FirebaseAnalytics.getInstance(requireContext())
+        val bundle = Bundle()
+        bundle.putString("message", "Integración de Firebase completa")
+        analytics.logEvent("InitScreen", bundle)
 
         //Toolbar
         toolbar = binding.toolbar

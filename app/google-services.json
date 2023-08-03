@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "740891128344",
+    "project_id": "protrack-antonsmart",
+    "storage_bucket": "protrack-antonsmart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740891128344:android:12ed7753764f19011c096d",
+        "android_client_info": {
+          "package_name": "com.antonsmart.protrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740891128344-bgf2isbmn29s5im2qq53ctnjbi3cch0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgcTBCxjMlR7l81erhuauiX792jN7a5tA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740891128344-bgf2isbmn29s5im2qq53ctnjbi3cch0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
