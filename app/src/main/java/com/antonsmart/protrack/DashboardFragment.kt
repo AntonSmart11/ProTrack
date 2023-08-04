@@ -3,26 +3,20 @@ package com.antonsmart.protrack
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.antonsmart.protrack.databinding.FragmentDashboardBinding
 import com.antonsmart.protrack.global.Global
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.navigation.NavigationView
-import com.google.firebase.analytics.FirebaseAnalytics
+
+enum class ProviderType {
+    GOOGLE
+}
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
@@ -33,11 +27,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
-
-        val analytics = FirebaseAnalytics.getInstance(requireContext())
-        val bundle = Bundle()
-        bundle.putString("message", "Integración de Firebase completa")
-        analytics.logEvent("InitScreen", bundle)
 
         //Toolbar
         toolbar = binding.toolbar
