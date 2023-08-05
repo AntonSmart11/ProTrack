@@ -68,7 +68,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         } else {
 
             if(checkUser(username)) {
-                val user = User(0, name, last, username, password)
+                val user = User(0, name, last, username, password, "local")
                 val status = sqliteHelper.InsertUser(user)
 
                 if(status > -1) {
@@ -88,7 +88,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private fun checkUser(username: String): Boolean {
         val userList = sqliteHelper.GetAllUsers()
-        val usernames = userList.map { it.username }
+        val usernames = userList.map { it.email }
         var repeat = true
 
         for (u in usernames) {

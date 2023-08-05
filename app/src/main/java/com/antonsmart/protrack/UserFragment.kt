@@ -37,8 +37,13 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         //Content
         binding.userName.setText(user.name)
         binding.userLast.setText(user.last)
-        binding.userUsername.setText(user.username)
+        binding.userUsername.setText(user.email)
         binding.userPassword.setText(user.password)
+        binding.userProvider.setText(user.provider)
+
+        if(binding.userProvider.text.toString() == "firebase") {
+            binding.userPassword.isEnabled = false
+        }
 
         //BtnSaveUser
         binding.btnSaveUser.setOnClickListener {
@@ -91,12 +96,13 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         val last = binding.userLast.text.toString()
         val user = binding.userUsername.text.toString()
         val password = binding.userPassword.text.toString()
+        val provider = binding.userProvider.text.toString()
 
         if(!name.isEmpty()) {
             if(!last.isEmpty()) {
                 if(!user.isEmpty()) {
-                    if(!password.isEmpty()) {
-                        val user = User(Global.idUser, name, last, user, password)
+                    if(!password.isEmpty() || provider == "firebase") {
+                        val user = User(Global.idUser, name, last, user, password, provider)
                         val status = sqliteHelper.UpdateUser(user)
 
                         if(status > -1) {

@@ -14,10 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.antonsmart.protrack.databinding.FragmentDashboardBinding
 import com.antonsmart.protrack.global.Global
 
-enum class ProviderType {
-    GOOGLE
-}
-
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private lateinit var binding: FragmentDashboardBinding

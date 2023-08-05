@@ -126,14 +126,55 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    Toast.makeText(requireContext(), "Iniciado cómo ${user?.displayName}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Iniciado con Google", Toast.LENGTH_SHORT).show()
+
+                    //Local database
+                    val displayName = user?.displayName
+                    val email = user?.email
+                    val provider = user?.providerId
+
+                    if(checkUser(email!!)) {
+                        addUser(displayName, email, provider)
+                    }
 
                     //Change of screen here
+                    val id_user = UserId(email).id
+
+                    SessionActive(id_user)
+
+                    val direction = LoginFragmentDirections.actionLoginFragmentToDashboardFragment(id_user)
+                    findNavController().navigate(direction)
 
                 } else {
                     Toast.makeText(requireContext(), "Autenticación fallida", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun addUser(displayName: String?, email: String?, provider: String?) {
+
+        val names = displayName?.split(" ")
+        val name = names?.firstOrNull()
+
+        val user = User(0, name!!, "", email!!, "", provider!!)
+
+        val status = sqliteHelper.InsertUser(user)
+
+    }
+
+    private fun checkUser(username: String): Boolean {
+        val userList = sqliteHelper.GetAllUsers()
+        val usernames = userList.map { it.email }
+        var repeat = true
+
+        for (u in usernames) {
+            if(username.contains(u)) {
+                repeat = false
+            }
+        }
+
+        return repeat
+
     }
 
     //End of Google
@@ -146,16 +187,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         editor.apply()
     }
 
-    private fun UserId(username: String): User {
+    private fun UserId(email: String): User {
         val userList = sqliteHelper.GetAllUsers()
-        val user = userList.find { it.username == username }
+        val user = userList.find { it.email == email }
 
         return user!!
     }
 
     private fun ValidationPassword(username: String, password: String): Boolean {
         val userList = sqliteHelper.GetAllUsers()
-        val user = userList.find { it.username == username }
+        val user = userList.find { it.email == username }
         var right = false
 
         if(user!!.password == password) {
@@ -167,7 +208,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun ValidationUsername(username: String): Boolean {
         val userList = sqliteHelper.GetAllUsers()
-        val usernames = userList.map { it.username }
+        val usernames = userList.map { it.email }
         var exists = false
 
         for (u in usernames) {

@@ -27,8 +27,9 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         private const val ID_USER = "id_users"
         private const val NAME_USER = "name"
         private const val LAST_USER = "last"
-        private const val USERNAME_USER = "username"
+        private const val EMAIL_USER = "email"
         private const val PASSWORD_USER = "password"
+        private const val PROVIDER_USER = "provider"
         
         //Table of projects
         private const val TABLE_PROJECTS = "projects"
@@ -75,6 +76,9 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         private const val TITLE_REMINDER = "title"
         private const val DATE_REMINDER = "date"
 
+        //Table of dates
+        private const val TABLE_DATES = "dates"
+        private const val DATE_DATE = "date"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -82,8 +86,9 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                 ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 NAME_USER + " TEXT," +
                 LAST_USER + " TEXT," +
-                USERNAME_USER + " TEXT," +
-                PASSWORD_USER + " TEXT"
+                EMAIL_USER + " TEXT," +
+                PASSWORD_USER + " TEXT," +
+                PROVIDER_USER + " TEXT"
                 +")")
 
         val TABLE_PROJECTS = ("CREATE TABLE " + TABLE_PROJECTS + "(" +
@@ -157,8 +162,9 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         val contentValues = ContentValues()
         contentValues.put(NAME_USER, user.name)
         contentValues.put(LAST_USER, user.last)
-        contentValues.put(USERNAME_USER, user.username)
+        contentValues.put(EMAIL_USER, user.email)
         contentValues.put(PASSWORD_USER, user.password)
+        contentValues.put(PROVIDER_USER, user.provider)
 
         val success = db.insert(TABLE_USERS, null, contentValues)
         db.close()
@@ -186,16 +192,18 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         var last: String
         var username: String
         var password: String
+        var provider: String
 
         if(cursor.moveToFirst()) {
             do {
                 id_user = cursor.getInt(cursor.getColumnIndex(ID_USER))
                 name = cursor.getString(cursor.getColumnIndex(NAME_USER))
                 last = cursor.getString(cursor.getColumnIndex(LAST_USER))
-                username = cursor.getString(cursor.getColumnIndex(USERNAME_USER))
+                username = cursor.getString(cursor.getColumnIndex(EMAIL_USER))
                 password = cursor.getString(cursor.getColumnIndex(PASSWORD_USER))
+                provider = cursor.getString(cursor.getColumnIndex(PROVIDER_USER))
 
-                val user = User(id_user, name, last, username, password)
+                val user = User(id_user, name, last, username, password, provider)
                 userList.add(user)
             } while (cursor.moveToNext())
         }
@@ -210,8 +218,9 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         contentValues.put(ID_USER, user.id)
         contentValues.put(NAME_USER, user.name)
         contentValues.put(LAST_USER, user.last)
-        contentValues.put(USERNAME_USER, user.username)
+        contentValues.put(EMAIL_USER, user.email)
         contentValues.put(PASSWORD_USER, user.password)
+        contentValues.put(PROVIDER_USER, user.provider)
 
         val success = db.update(TABLE_USERS, contentValues, ID_USER + "=" + user.id, null)
         db.close()
