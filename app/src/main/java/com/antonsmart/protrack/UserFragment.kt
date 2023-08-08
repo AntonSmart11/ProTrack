@@ -80,6 +80,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         val cancelButton = dialog.findViewById<Button>(R.id.btnCancelDeleteUser)
 
         nextButton.setOnClickListener {
+            sqliteHelper.DeleteNoteUser(id)
             sqliteHelper.DeleteWorkUser(id)
             sqliteHelper.DeleteRoleUser(id)
             sqliteHelper.DeleteProjectUser(id)

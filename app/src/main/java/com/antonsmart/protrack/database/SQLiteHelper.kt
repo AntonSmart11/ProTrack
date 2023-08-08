@@ -646,6 +646,18 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         return success
     }
 
+    fun DeleteNoteUser(id: Int): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID_USER_NOTE, id)
+
+        val success = db.delete(TABLE_NOTES, ID_USER_NOTE + "=" + id, null)
+        db.close()
+
+        return success
+    }
+
     //Reminder
     fun InsertReminder(reminder: Reminder): Long {
         val db = this.writableDatabase
