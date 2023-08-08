@@ -16,18 +16,33 @@ import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentUserBinding
 import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.User
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class UserFragment : Fragment(R.layout.fragment_user) {
 
     private lateinit var binding: FragmentUserBinding
     private lateinit var sqliteHelper: SQLiteHelper
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = DataBindingUtil.bind(view)!!
         sqliteHelper = SQLiteHelper(requireContext())
+
+        //Google
+        mAuth = FirebaseAuth.getInstance()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         //Global variable
         val idUser = Global.idUser
@@ -67,8 +82,9 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
     private fun DeleteUserGoogle() {
         val user = FirebaseAuth.getInstance().currentUser
-
         user?.delete()
+
+        mGoogleSignInClient.signOut()
     }
 
     private fun DeleteUser(id: Int) {

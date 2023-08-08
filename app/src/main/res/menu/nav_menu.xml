@@ -20,6 +20,7 @@
         <item
             android:id="@+id/remembers"
             android:title="Recordatorios"
-            android:icon="@drawable/watch" />
+            android:icon="@drawable/watch"
+            android:visible="false"/>
     </group>
 </menu>
