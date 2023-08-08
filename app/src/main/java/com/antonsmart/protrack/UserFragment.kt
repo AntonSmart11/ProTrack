@@ -16,6 +16,7 @@ import com.antonsmart.protrack.database.SQLiteHelper
 import com.antonsmart.protrack.databinding.FragmentUserBinding
 import com.antonsmart.protrack.global.Global
 import com.antonsmart.protrack.objects.User
+import com.google.firebase.auth.FirebaseAuth
 
 class UserFragment : Fragment(R.layout.fragment_user) {
 
@@ -53,12 +54,21 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         //BtnDeleteUser
         binding.btnDeleteUser.setOnClickListener {
             DeleteUser(Global.idUser)
+            if(binding.userProvider.text.toString() == "firebase") {
+                DeleteUserGoogle()
+            }
         }
 
         binding.arrowBack.setOnClickListener {
             val navController = Navigation.findNavController(view)
             navController.navigateUp()
         }
+    }
+
+    private fun DeleteUserGoogle() {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        user?.delete()
     }
 
     private fun DeleteUser(id: Int) {
